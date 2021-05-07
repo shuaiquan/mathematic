@@ -1,2 +1,2 @@
-# mathematic
-a mathematic library
+# mathematical
+A mathematical platform with magic

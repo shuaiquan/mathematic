@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "outDir": "./types",
+        "module": "ESNext",
+        "target": "es6",
+        "jsx": "react",
+        "allowJs": false,
+        "declaration": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "DOM",
+            "ESNext"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "compileOnSave": true
+}
