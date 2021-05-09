@@ -43,7 +43,7 @@ class Vector2 {
      */
     constructor(x?: number, y?: number);
     /**
-     * @param point A Object that contains the values x and y
+     * @param point An Object that contains the values x and y
      */
     constructor(point?: Partial<IVec2>);
     constructor() {
@@ -55,13 +55,13 @@ class Vector2 {
      * Sets values of the current vector
      * @param x x value
      * @param y y value
-     * @returns The current value
+     * @returns The current vector2
      */
     set(x?: number, y?: number): Vector2;
     /**
      * Sets values of the current vector
      * @param point A Object that contains the values x and y
-     * @returns The current value
+     * @returns The current vector2
      */
     set(point: Partial<IVec2>): Vector2;
     set() {
