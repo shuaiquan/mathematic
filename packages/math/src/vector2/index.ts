@@ -1,5 +1,5 @@
 import { IVec2 } from "./interface";
-import { ZERO, ONE, MAX, MIN } from '../const';
+import { ZERO, ONE, MAX, MIN, TWO_PI } from '../const';
 
 /**
  * Class representing a vector containing 2 coordinates
@@ -65,14 +65,13 @@ class Vector2 {
      */
     set(point: Partial<IVec2>): Vector2;
     set() {
-        if (typeof arguments[0] === 'number') {
-            this.x = arguments[0] || ZERO;
-            this.y = arguments[1] || ZERO;
+        if (typeof arguments[0] === 'number' || typeof arguments[1] === 'number') {
+            this.x = arguments[0] || this.x;
+            this.y = arguments[1] || this.y;
         } else if (typeof arguments[0] === 'object') {
-            this.x = arguments[0].x || ZERO;
-            this.y = arguments[0].y || ZERO;
+            this.x = arguments[0].x || this.x;
+            this.y = arguments[0].y || this.y;
         }
-
         return this;
     }
 
@@ -125,16 +124,16 @@ class Vector2 {
     }
 
     /**
-     * computes the angle in radians with respect to the positive x-axis
+     * Computes the angle in radians with respect to the horizontal left axis
      * 
-     * Radians in range [ 0, 2 * PI )
+     * Radians in range [ 0, 2 * PI ), counterclockwise (逆时针为正)
      */
     get angle() {
-        // todo 检查这里的逻辑
-        // step 1. computes the angle by atan in [-90, 90]
-        const angle = Math.atan(this.y / this.x);
-        /// step 2. maps the angle to the quadrant of the vector
-        return this.x < 0 ? angle + Math.PI : angle;
+        // Math.atan2 value range: 
+        // [0, 180] -> [0, PI]
+        // (180, 360) -> (-PI, 0)
+        const radian = Math.atan2(this.y, this.x);
+        return radian < 0 ? radian + TWO_PI : radian;
     }
 
     /**

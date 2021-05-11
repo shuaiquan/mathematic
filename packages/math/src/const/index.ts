@@ -17,3 +17,7 @@ export const MAX = Infinity;
  * number -Infinity
  */
 export const MIN = -Infinity;
+
+export const PI = Math.PI;
+
+export const TWO_PI = PI * 2;
