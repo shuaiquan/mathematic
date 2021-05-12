@@ -53,6 +53,10 @@ test('Vector2 set', () => {
     v.setY(1);
     expect(v.x).toBe(1);
     expect(v.y).toBe(1);
+
+    v.set(0, 0);
+    expect(v.x).toBe(0);
+    expect(v.y).toBe(0);
 });
 
 test('Vector2 copy', () => {
@@ -108,9 +112,7 @@ test('Vector2 lengthSq', () => {
     expect(v8.lengthSq).toBe(200);
 });
 
-// todo 有问题
 test('Vector2 angle', () => {
-    // todo 假定逆时针为正
     const PI = Math.PI;
     const v1 = new Vector2(10, 0);
     const v2 = new Vector2(10, 10);

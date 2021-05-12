@@ -66,11 +66,12 @@ class Vector2 {
     set(point: Partial<IVec2>): Vector2;
     set() {
         if (typeof arguments[0] === 'number' || typeof arguments[1] === 'number') {
-            this.x = arguments[0] || this.x;
-            this.y = arguments[1] || this.y;
+            this.x = arguments[0] === undefined ? this.x : arguments[0];
+            this.y = arguments[1] === undefined ? this.y : arguments[1];
         } else if (typeof arguments[0] === 'object') {
-            this.x = arguments[0].x || this.x;
-            this.y = arguments[0].y || this.y;
+            const { x, y } = arguments[0];
+            this.x = x === undefined ? this.x : x;
+            this.y = y === undefined ? this.y : y;
         }
         return this;
     }
@@ -221,7 +222,9 @@ class Vector2 {
      * @returns A new Vector2
      */
     inverse() {
-        return new Vector2(-this.x, -this.y);
+        const x = this.x === 0 ? 0 : -this.x;
+        const y = this.y === 0 ? 0 : -this.y;
+        return new Vector2(x, y);
     }
 
     /**
