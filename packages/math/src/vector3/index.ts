@@ -1,5 +1,6 @@
 import { IVec3 } from './interface';
 import { ZERO, ONE, MIN, MAX } from '../const';
+import { NumberUtil } from '../utils';
 
 const VALUE = 0;
 
@@ -293,9 +294,16 @@ class Vector3 {
      * Determines  whether this vector and v are parallel
      */
     isParallel(v: Vector3) {
-        const d1 = this.normalize();
-        const d2 = v.normalize();
-        return d1.equals(d2) || d1.equals(d2.inverse());
+        const l1 = this.length;
+        const l2 = v.length
+        if (l1 === 0 || l2 === 0) {
+            // zero vector
+            return true;
+        }
+        // cosθ === 0
+        const cos = this.dot(v) / (l1 * l2);
+        console.log(cos);
+        return NumberUtil.isEqual(cos, 1) || NumberUtil.isEqual(cos, -1);
     }
 
     /**

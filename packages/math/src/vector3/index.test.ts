@@ -215,6 +215,7 @@ test('Vector3 isParallel', () => {
     expect((new Vector3(0, 100, 0)).isParallel(new Vector3(0, 200, 0))).toBe(true);
     expect((new Vector3(100, 0, 0)).isParallel(new Vector3(-200, 0, 0))).toBe(true);
     expect((new Vector3(100, 0, 100)).isParallel(new Vector3(-10, 0, -10))).toBe(true);
+    expect((new Vector3(0, 0, 0)).isParallel(new Vector3(0, -10, 0))).toBe(true);
 });
 
 test('Vector3 isVertical', () => {
