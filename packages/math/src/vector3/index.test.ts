@@ -129,7 +129,7 @@ test('Vector3 add', () => {
 });
 
 test('Vector3 sub', () => {
-    const v1 = new Vector3(10, 10);
+    const v1 = new Vector3(10, 10, 10);
 
     const v2 = v1.sub(1);
     expect(v2).not.toBe(v1);

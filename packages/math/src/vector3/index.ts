@@ -79,16 +79,16 @@ class Vector3 {
      */
     set(point: Partial<IVec3>): Vector3;
     set() {
-        if (typeof arguments[0] === 'number') {
-            this.x = arguments[0] || VALUE;
-            this.y = arguments[1] || VALUE;
-            this.z = arguments[2] || VALUE;
+        if (typeof arguments[0] === 'number' || typeof arguments[1] === 'number' || typeof arguments[2] === 'number') {
+            this.x = arguments[0] === undefined ? this.x : arguments[0];
+            this.y = arguments[1] === undefined ? this.y : arguments[1];
+            this.z = arguments[2] === undefined ? this.z : arguments[2];
         } else if (typeof arguments[0] === 'object') {
-            this.x = arguments[0].x || VALUE;
-            this.y = arguments[0].y || VALUE;
-            this.z = arguments[0].z || VALUE;
+            const { x, y, z } = arguments[0];
+            this.x = x === undefined ? this.x : x;
+            this.y = y === undefined ? this.y : y;
+            this.z = z === undefined ? this.z : z;
         }
-
         return this;
     }
 
@@ -293,7 +293,9 @@ class Vector3 {
      * Determines  whether this vector and v are parallel
      */
     isParallel(v: Vector3) {
-        return this.x / v.x === this.y / v.y && this.y / v.y === this.z / v.z;
+        const d1 = this.normalize();
+        const d2 = v.normalize();
+        return d1.equals(d2) || d1.equals(d2.inverse());
     }
 
     /**
