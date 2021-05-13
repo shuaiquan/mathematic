@@ -8,22 +8,22 @@ class Vector2 {
     /**
      * Vector2 (0, 0)
      */
-    static ZERO = new Vector2(ZERO, ZERO);
+    static readonly ZERO = new Vector2(ZERO, ZERO);
 
     /**
      * Vector2 (1, 1)
      */
-    static ONE = new Vector2(ONE, ONE);
+    static readonly ONE = new Vector2(ONE, ONE);
 
     /**
      * Vector2 (Infinity, Infinity)
      */
-    static MAX = new Vector2(MAX, MAX);
+    static readonly MAX = new Vector2(MAX, MAX);
 
     /**
      * Vector2 (-Infinity, -Infinity)
      */
-    static MIN = new Vector2(MIN, MIN);
+    static readonly MIN = new Vector2(MIN, MIN);
 
     /** 
      * The X value of the current vector

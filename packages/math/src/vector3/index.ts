@@ -11,22 +11,22 @@ class Vector3 {
     /**
      * Vector3 (0, 0, 0)
      */
-    static ZERO = new Vector3(ZERO, ZERO, ZERO);
+    static readonly ZERO = new Vector3(ZERO, ZERO, ZERO);
 
     /**
      * Vector3 (1, 1, 1)
      */
-    static ONE = new Vector3(ONE, ONE, ONE);
+    static readonly ONE = new Vector3(ONE, ONE, ONE);
 
     /**
      * Vector3 (Infinity, Infinity, Infinity)
      */
-    static MAX = new Vector3(MAX, MAX, MAX);
+    static readonly MAX = new Vector3(MAX, MAX, MAX);
 
     /**
      * Vector3 (-Infinity, -Infinity, -Infinity)
      */
-    static MIN = new Vector3(MIN, MIN, MIN);
+    static readonly MIN = new Vector3(MIN, MIN, MIN);
 
     static lerpVectors(v: Vector3, w: Vector3, alpha: number = 1) {
         return v.clone().lerp(w, alpha);
