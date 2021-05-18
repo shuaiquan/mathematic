@@ -1,3 +1,4 @@
+import { Matrix3 } from "../matrix3";
 import { Vector3 } from "../vector3";
 
 const Matrix4_SIZE = 16;
@@ -307,20 +308,43 @@ class Matrix4 {
     //     );
     // }
 
-    // /**
-    //  * Calculates the determinant of this Matrix4 (行列式)
-    //  */
-    // determinant() {
-    //     const [
-    //         m11, m12, m13,
-    //         m21, m22, m23,
-    //         m31, m32, m33,
-    //     ] = this.elements;
+    /**
+     * Calculates the determinant of this Matrix4 (行列式)
+     */
+    determinant() {
+        const [
+            m11, m12, m13, m14,
+            m21, m22, m23, m24,
+            m31, m32, m33, m34,
+            m41, m42, m43, m44,
+        ] = this.elements;
 
-    //     return m11 * (m22 * m33 - m32 * m23)
-    //         - m12 * (m21 * m33 - m31 * m23)
-    //         + m13 * (m21 * m32 - m31 * m22);
-    // }
+        const d11 = new Matrix3(
+            m22, m23, m24,
+            m32, m33, m34,
+            m42, m43, m44
+        ).determinant();
+
+        const d12 = new Matrix3(
+            m21, m23, m24,
+            m31, m33, m34,
+            m41, m43, m44
+        ).determinant();
+
+        const d13 = new Matrix3(
+            m21, m22, m24,
+            m31, m32, m34,
+            m41, m42, m44
+        ).determinant();
+
+        const d14 = new Matrix3(
+            m21, m22, m23,
+            m31, m32, m33,
+            m41, m42, m43
+        ).determinant();
+
+        return m11 * d11 - m12 * d12 + m13 * d13 - m14 * d14;
+    }
 
     /**
      * Applies translate transform to this matrix
