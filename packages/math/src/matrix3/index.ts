@@ -116,6 +116,7 @@ class Matrix3 {
             m21, m22, m23,
             m31, m32, m33,
         ];
+        return this;
     }
 
     /**
