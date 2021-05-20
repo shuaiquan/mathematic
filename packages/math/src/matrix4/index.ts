@@ -137,6 +137,7 @@ class Matrix4 {
             m31, m32, m33, m34,
             m41, m42, m43, m44,
         ];
+        return this;
     }
 
     /**
@@ -195,23 +196,56 @@ class Matrix4 {
         return this;
     }
 
-    // /**
-    //  * Sets this matrix from rotate transform
-    //  * @param radian theta Rotation angle in radians.
-    //  * @returns The current matrix
-    //  */
-    // fromRotate(radian: number) {
-    //     const c = Math.cos(radian);
-    //     const s = Math.sin(radian);
+    /**
+     * Sets this matrix from rotate transform about X-axis
+     * @param radian theta Rotation angle in radians.
+     * @returns The current matrix
+     */
+    fromRotateX(radian: number) {
+        const c = Math.cos(radian);
+        const s = Math.sin(radian);
 
-    //     this.set(
-    //         c, -s, 0,
-    //         s, c, 0,
-    //         0, 0, 1,
-    //     );
+        return this.set(
+            1, 0, 0, 0,
+            0, c, -s, 0,
+            0, s, c, 0,
+            0, 0, 0, 1
+        );
+    }
 
-    //     return this;
-    // }
+    /**
+     * Sets this matrix from rotate transform about Y-axis
+     * @param radian theta Rotation angle in radians.
+     * @returns The current matrix
+     */
+    fromRotateY(radian: number) {
+        const c = Math.cos(radian);
+        const s = Math.sin(radian);
+
+        return this.set(
+            c, 0, s, 0,
+            0, 1, 0, 0,
+            -s, 0, c, 0,
+            0, 0, 0, 1
+        );
+    }
+
+    /**
+     * Sets this matrix from rotate transform about Z-axis
+     * @param radian theta Rotation angle in radians.
+     * @returns The current matrix
+     */
+    fromRotateZ(radian: number) {
+        const c = Math.cos(radian);
+        const s = Math.sin(radian);
+
+        return this.set(
+            c, -s, 0, 0,
+            s, c, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        );
+    }
 
     /**
      * Copies m to the current matrix
@@ -458,34 +492,32 @@ class Matrix4 {
         return new Matrix4().fromArray(arr);
     }
 
-    // /**
-    //  * Applies rotate transform to this matrix
-    //  * @param radian theta Rotation angle in radians.
-    //  * @returns A new matrix
-    //  */
-    // applyRotate(radian: number) {
-    //     const [
-    //         m11, m12, m13,
-    //         m21, m22, m23,
-    //         m31, m32, m33,
-    //     ] = this.elements;
+    /**
+     * Applies rotate transform about X-axis to this matrix
+     * @param radian theta Rotation angle in radians.
+     * @returns A new matrix
+     */
+    applyRotateX(radian: number) {
+        return this.multiply(new Matrix4().fromRotateX(radian));
+    }
 
-    //     const c = Math.cos(radian);
-    //     const s = Math.sin(radian);
+    /**
+     * Applies rotate transform about Y-axis to this matrix
+     * @param radian theta Rotation angle in radians.
+     * @returns A new matrix
+     */
+    applyRotateY(radian: number) {
+        return this.multiply(new Matrix4().fromRotateY(radian));
+    }
 
-    //     const arr: number[] = [];
-    //     arr[0] = m11 * c - m21 * s;
-    //     arr[1] = m12 * c - m22 * s;
-    //     arr[2] = m13 * c - m23 * s;
-    //     arr[3] = m11 * s + m21 * c;
-    //     arr[4] = m12 * s + m22 * c;
-    //     arr[5] = m13 * s + m23 * c;
-    //     arr[6] = m31;
-    //     arr[7] = m32;
-    //     arr[8] = m33;
-
-    //     return new Matrix4().fromArray(arr);
-    // }
+    /**
+     * Applies rotate transform about Z-axis to this matrix
+     * @param radian theta Rotation angle in radians.
+     * @returns A new matrix
+     */
+    applyRotateZ(radian: number) {
+        return this.multiply(new Matrix4().fromRotateZ(radian));
+    }
 
     /**
      * Determines whether the current matrix and m are equal
