@@ -277,36 +277,113 @@ class Matrix4 {
         return new Matrix4().fromArray(arr);
     }
 
-    // /**
-    //  * Inverts this matrix （逆矩阵）
-    //  * @returns A new matrix
-    //  */
-    // invert() {
-    //     // todo 整理一下算法
-    //     const [
-    //         m11, m12, m13,
-    //         m21, m22, m23,
-    //         m31, m32, m33,
-    //     ] = this.elements;
+    /**
+     * Inverts this matrix （逆矩阵）
+     * @returns A new matrix
+     */
+    invert() {
+        const determinant = this.determinant();
+        if (determinant === 0) {
+            throw new Error("The matrix determinant is zero");
+        }
 
-    //     const d = 1 / this.determinant();
+        const [
+            m11, m12, m13, m14,
+            m21, m22, m23, m24,
+            m31, m32, m33, m34,
+            m41, m42, m43, m44,
+        ] = this.elements;
 
-    //     const n11 = (m22 * m33 - m32 * m23) * d;
-    //     const n12 = -(m12 * m33 - m32 * m13) * d;
-    //     const n13 = (m12 * m23 - m22 * m13) * d;
-    //     const n21 = -(m21 * m33 - m31 * m23) * d;
-    //     const n22 = (m11 * m33 - m31 * m13) * d;
-    //     const n23 = -(m11 * m23 - m21 * m13) * d;
-    //     const n31 = (m21 * m32 - m31 * m22) * d;
-    //     const n32 = -(m11 * m32 - m31 * m12) * d;
-    //     const n33 = (m11 * m22 - m21 * m12) * d;
+        const d = 1 / determinant;
 
-    //     return new Matrix4(
-    //         n11, n12, n13,
-    //         n21, n22, n23,
-    //         n31, n32, n33,
-    //     );
-    // }
+        const d11 = new Matrix3(
+            m22, m23, m24,
+            m32, m33, m34,
+            m42, m43, m44,
+        ).determinant();
+        const d12 = new Matrix3(
+            m21, m23, m24,
+            m31, m33, m34,
+            m41, m43, m44,
+        ).determinant();
+        const d13 = new Matrix3(
+            m21, m22, m24,
+            m31, m32, m34,
+            m41, m42, m44,
+        ).determinant();
+        const d14 = new Matrix3(
+            m21, m22, m23,
+            m31, m32, m33,
+            m41, m42, m43
+        ).determinant();
+        const d21 = new Matrix3(
+            m12, m13, m14,
+            m32, m33, m34,
+            m42, m43, m44,
+        ).determinant();
+        const d22 = new Matrix3(
+            m11, m13, m14,
+            m31, m33, m34,
+            m41, m43, m44,
+        ).determinant();
+        const d23 = new Matrix3(
+            m11, m12, m14,
+            m31, m32, m34,
+            m41, m42, m44,
+        ).determinant();
+        const d24 = new Matrix3(
+            m11, m12, m13,
+            m31, m32, m33,
+            m41, m42, m43,
+        ).determinant();
+        const d31 = new Matrix3(
+            m12, m13, m14,
+            m22, m23, m24,
+            m42, m43, m44,
+        ).determinant();
+        const d32 = new Matrix3(
+            m12, m13, m14,
+            m22, m23, m24,
+            m42, m43, m44,
+        ).determinant();
+        const d33 = new Matrix3(
+            m11, m12, m14,
+            m21, m22, m24,
+            m41, m42, m44,
+        ).determinant();
+        const d34 = new Matrix3(
+            m11, m12, m13,
+            m21, m22, m23,
+            m41, m42, m43,
+        ).determinant();
+        const d41 = new Matrix3(
+            m12, m13, m14,
+            m22, m23, m24,
+            m32, m33, m34,
+        ).determinant();
+        const d42 = new Matrix3(
+            m11, m13, m14,
+            m21, m23, m24,
+            m31, m33, m34,
+        ).determinant();
+        const d43 = new Matrix3(
+            m11, m12, m14,
+            m21, m22, m24,
+            m31, m32, m34,
+        ).determinant();
+        const d44 = new Matrix3(
+            m11, m12, m13,
+            m21, m22, m23,
+            m31, m32, m33,
+        ).determinant();
+
+        return new Matrix4(
+            d11, -d12, d13, -d14,
+            d21, -d22, d23, -d24,
+            d31, -d32, d33, -d34,
+            d41, -d42, d43, -d44
+        ).transpose().multiplyScalar(d);
+    }
 
     /**
      * Calculates the determinant of this Matrix4 (行列式)
