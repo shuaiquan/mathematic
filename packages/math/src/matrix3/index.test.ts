@@ -1,5 +1,6 @@
 import { Matrix3 } from "."
 import { Vector2 } from "../vector2";
+import "../jest";
 
 test('constructor + equals', () => {
     const m1 = new Matrix3();
@@ -189,12 +190,12 @@ test('invert', () => {
     expect(m).not.toBe(m1);
 
     const elements = m.toArray();
-    expect(elements[0]).toEqual(0);
+    expect(elements[0]).toBeUnsignedZero(0);
     expect(elements[1]).toEqual(1);
     expect(elements[2]).toEqual(-1);
     expect(elements[3]).toEqual(2 / 3);
-    expect(elements[4]).toEqual(1 / 3);
-    expect(elements[5]).toEqual(0);
+    expect(elements[4]).toEqual(-1 / 3);
+    expect(elements[5]).toBeUnsignedZero(0);
     expect(elements[6]).toEqual(-1 / 3);
     expect(elements[7]).toEqual(-1 / 3);
     expect(elements[8]).toEqual(1);
@@ -217,11 +218,10 @@ test('applyTranslate', () => {
     );
     const m = m1.applyTranslate(new Vector2(2, 1))
     expect(m).not.toBe(m1);
-    expect(m.equals(new Matrix3(
-        1, 2, 3,
-        2, 1, 3,
-        1, 1, 2
-    ))).toEqual(true);
+
+    const m2 = new Matrix3().fromTranslate(new Vector2(2, 1));
+    // applyTranslate 相当于左乘一个平移矩阵
+    expect(m.equals(m1.preMultiply(m2))).toEqual(true);
 });
 
 test('applyScale', () => {
@@ -232,27 +232,25 @@ test('applyScale', () => {
     );
     const m = m1.applyScale(new Vector2(2, 0.5))
     expect(m).not.toBe(m1);
-    expect(m.equals(new Matrix3(
-        2, 4, 2,
-        1, 0.5, 1,
-        1, 1, 2
-    ))).toEqual(true);
+
+    const m2 = new Matrix3().fromScale(new Vector2(2, 0.5));
+    // applyScale 相当于左乘一个缩放矩阵
+    expect(m.equals(m1.preMultiply(m2))).toEqual(true);
 });
 
-// test('applyRotate', () => {
-//     const m1 = new Matrix3(
-//         1, 2, 1,
-//         2, 1, 2,
-//         1, 1, 2
-//     );
-//     const m = m1.applyRotate(Math.PI)
-//     expect(m).not.toBe(m1);
-//     expect(m.equals(new Matrix3(
-//         1, 2, 3,
-//         2, 1, 3,
-//         1, 1, 2
-//     ))).toEqual(true);
-// });
+test('applyRotate', () => {
+    const m1 = new Matrix3(
+        1, 2, 1,
+        2, 1, 2,
+        1, 1, 2
+    );
+    const m = m1.applyRotate(Math.PI);
+    expect(m).not.toBe(m1);
+
+    const m2 = new Matrix3().fromRotate(Math.PI);
+    // applyRotate 相当于左乘一个旋转矩阵
+    expect(m.equals(m1.preMultiply(m2))).toEqual(true);
+});
 
 test('equals', () => {
     const m1 = new Matrix3(
@@ -266,4 +264,4 @@ test('equals', () => {
         1, 1, 2
     );
     expect(m1.equals(m2)).toEqual(true);
-})
+});

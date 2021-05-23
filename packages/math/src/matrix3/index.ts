@@ -303,9 +303,23 @@ class Matrix3 {
      * @returns A new matrix
      */
     applyTranslate(v: Vector2) {
-        const arr = [...this.elements];
-        arr[2] += v.x;
-        arr[5] += v.y;
+        const [
+            m11, m12, m13,
+            m21, m22, m23,
+            m31, m32, m33,
+        ] = this.elements;
+        const { x, y } = v;
+
+        const arr: number[] = [];
+        arr[0] = m11 + m31 * x;
+        arr[1] = m12 + m32 * x;
+        arr[2] = m13 + m33 * x;
+        arr[3] = m21 + m31 * y;
+        arr[4] = m22 + m32 * y;
+        arr[5] = m23 + m33 * y;
+        arr[6] = m31;
+        arr[7] = m32;
+        arr[8] = m33;
 
         return new Matrix3().fromArray(arr);
     }
@@ -315,13 +329,23 @@ class Matrix3 {
      * @returns A new matrix
      */
     applyScale(v: Vector2) {
-        const arr = [...this.elements];
-        arr[0] *= v.x;
-        arr[1] *= v.x;
-        arr[2] *= v.x;
-        arr[3] *= v.y;
-        arr[4] *= v.y;
-        arr[5] *= v.y;
+        const [
+            m11, m12, m13,
+            m21, m22, m23,
+            m31, m32, m33,
+        ] = this.elements;
+        const { x, y } = v;
+
+        const arr: number[] = [];
+        arr[0] = m11 * x;
+        arr[1] = m12 * x;
+        arr[2] = m13 * x;
+        arr[3] = m21 * y;
+        arr[4] = m22 * y;
+        arr[5] = m23 * y;
+        arr[6] = m31;
+        arr[7] = m32;
+        arr[8] = m33;
 
         return new Matrix3().fromArray(arr);
     }
