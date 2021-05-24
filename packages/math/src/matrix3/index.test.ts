@@ -82,10 +82,10 @@ test('fromRotate', () => {
     const s = Math.sin(radian);
 
     const elements = m1.toArray();
-    expect(elements[0]).toEqual(c);
-    expect(elements[1]).toEqual(-s);
-    expect(elements[3]).toEqual(s);
-    expect(elements[4]).toEqual(c);
+    expect(elements[0]).toBeCloseTo(c, 6);
+    expect(elements[1]).toBeCloseTo(-s, 6);
+    expect(elements[3]).toBeCloseTo(s, 6);
+    expect(elements[4]).toBeCloseTo(c, 6);
 });
 
 test('copy', () => {
@@ -190,15 +190,15 @@ test('invert', () => {
     expect(m).not.toBe(m1);
 
     const elements = m.toArray();
-    expect(elements[0]).toBeUnsignedZero(0);
-    expect(elements[1]).toEqual(1);
-    expect(elements[2]).toEqual(-1);
-    expect(elements[3]).toEqual(2 / 3);
-    expect(elements[4]).toEqual(-1 / 3);
-    expect(elements[5]).toBeUnsignedZero(0);
-    expect(elements[6]).toEqual(-1 / 3);
-    expect(elements[7]).toEqual(-1 / 3);
-    expect(elements[8]).toEqual(1);
+    expect(elements[0]).toBeCloseTo(0, 6);
+    expect(elements[1]).toBeCloseTo(1, 6);
+    expect(elements[2]).toBeCloseTo(-1, 6);
+    expect(elements[3]).toBeCloseTo(2 / 3, 6);
+    expect(elements[4]).toBeCloseTo(-1 / 3, 6);
+    expect(elements[5]).toBeCloseTo(0, 6);
+    expect(elements[6]).toBeCloseTo(-1 / 3, 6);
+    expect(elements[7]).toBeCloseTo(-1 / 3, 6);
+    expect(elements[8]).toBeCloseTo(1, 6);
 
     const m2 = new Matrix3(
         1, 0, 1,
@@ -206,18 +206,18 @@ test('invert', () => {
         -1, 2, 1
     );
     const n = m2.invert();
-    expect(n).not.toBe(m1);
+    expect(n).not.toBe(m2);
 
     const ele = n.toArray();
-    expect(ele[0]).toEqual(1 / 6);
-    expect(ele[1]).toEqual(1 / 3);
-    expect(ele[2]).toEqual(-1 / 6);
-    expect(ele[3]).toEqual(-1 / 3);
-    expect(ele[4]).toEqual(1 / 3);
-    expect(ele[5]).toEqual(1 / 3);
-    expect(ele[6]).toEqual(5 / 6);
-    expect(ele[7]).toEqual(-1 / 3);
-    expect(ele[8]).toEqual(1 / 6);
+    expect(ele[0]).toBeCloseTo(1 / 6, 6);
+    expect(ele[1]).toBeCloseTo(1 / 3, 6);
+    expect(ele[2]).toBeCloseTo(-1 / 6, 6);
+    expect(ele[3]).toBeCloseTo(-1 / 3, 6);
+    expect(ele[4]).toBeCloseTo(1 / 3, 6);
+    expect(ele[5]).toBeCloseTo(1 / 3, 6);
+    expect(ele[6]).toBeCloseTo(5 / 6, 6);
+    expect(ele[7]).toBeCloseTo(-1 / 3, 6);
+    expect(ele[8]).toBeCloseTo(1 / 6, 6);
 });
 
 test('determinant', () => {
