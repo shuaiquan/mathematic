@@ -199,6 +199,25 @@ test('invert', () => {
     expect(elements[6]).toEqual(-1 / 3);
     expect(elements[7]).toEqual(-1 / 3);
     expect(elements[8]).toEqual(1);
+
+    const m2 = new Matrix3(
+        1, 0, 1,
+        2, 1, 0,
+        -1, 2, 1
+    );
+    const n = m2.invert();
+    expect(n).not.toBe(m1);
+
+    const ele = n.toArray();
+    expect(ele[0]).toEqual(1 / 6);
+    expect(ele[1]).toEqual(1 / 3);
+    expect(ele[2]).toEqual(-1 / 6);
+    expect(ele[3]).toEqual(-1 / 3);
+    expect(ele[4]).toEqual(1 / 3);
+    expect(ele[5]).toEqual(1 / 3);
+    expect(ele[6]).toEqual(5 / 6);
+    expect(ele[7]).toEqual(-1 / 3);
+    expect(ele[8]).toEqual(1 / 6);
 });
 
 test('determinant', () => {
@@ -208,6 +227,13 @@ test('determinant', () => {
         1, 1, 2
     );
     expect(m1.determinant()).toEqual(-3);
+
+    const m2 = new Matrix3(
+        1, 0, 1,
+        2, 1, 0,
+        -1, 2, 1
+    );
+    expect(m2.determinant()).toEqual(6);
 });
 
 test('applyTranslate', () => {
