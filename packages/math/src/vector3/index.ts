@@ -302,7 +302,6 @@ class Vector3 {
         }
         // cosθ === 0
         const cos = this.dot(v) / (l1 * l2);
-        console.log(cos);
         return NumberUtil.isEqual(cos, 1) || NumberUtil.isEqual(cos, -1);
     }
 

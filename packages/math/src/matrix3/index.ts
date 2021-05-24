@@ -257,7 +257,11 @@ class Matrix3 {
      * @returns A new matrix
      */
     invert() {
-        // todo 整理一下算法
+        const determinant = this.determinant();
+        if (determinant === 0) {
+            throw new Error("The matrix determinant is zero");
+        }
+
         const [
             m11, m12, m13,
             m21, m22, m23,
