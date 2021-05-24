@@ -303,7 +303,7 @@ class Matrix4 {
         const arr: number[] = [];
 
         const te = this.elements;
-        arr[0] = te[0]; arr[1] = te[4]; arr[2] = te[8]; arr[2] = te[12];
+        arr[0] = te[0]; arr[1] = te[4]; arr[2] = te[8]; arr[3] = te[12];
         arr[4] = te[1]; arr[5] = te[5]; arr[6] = te[9]; arr[7] = te[13];
         arr[8] = te[2]; arr[9] = te[6]; arr[10] = te[10]; arr[11] = te[14];
         arr[12] = te[3]; arr[13] = te[7]; arr[14] = te[11]; arr[15] = te[15]
@@ -330,92 +330,140 @@ class Matrix4 {
 
         const d = 1 / determinant;
 
-        const d11 = new Matrix3(
-            m22, m23, m24,
-            m32, m33, m34,
-            m42, m43, m44,
-        ).determinant();
-        const d12 = new Matrix3(
-            m21, m23, m24,
-            m31, m33, m34,
-            m41, m43, m44,
-        ).determinant();
-        const d13 = new Matrix3(
-            m21, m22, m24,
-            m31, m32, m34,
-            m41, m42, m44,
-        ).determinant();
-        const d14 = new Matrix3(
-            m21, m22, m23,
-            m31, m32, m33,
-            m41, m42, m43
-        ).determinant();
-        const d21 = new Matrix3(
-            m12, m13, m14,
-            m32, m33, m34,
-            m42, m43, m44,
-        ).determinant();
-        const d22 = new Matrix3(
-            m11, m13, m14,
-            m31, m33, m34,
-            m41, m43, m44,
-        ).determinant();
-        const d23 = new Matrix3(
-            m11, m12, m14,
-            m31, m32, m34,
-            m41, m42, m44,
-        ).determinant();
-        const d24 = new Matrix3(
-            m11, m12, m13,
-            m31, m32, m33,
-            m41, m42, m43,
-        ).determinant();
-        const d31 = new Matrix3(
-            m12, m13, m14,
-            m22, m23, m24,
-            m42, m43, m44,
-        ).determinant();
-        const d32 = new Matrix3(
-            m12, m13, m14,
-            m22, m23, m24,
-            m42, m43, m44,
-        ).determinant();
-        const d33 = new Matrix3(
-            m11, m12, m14,
-            m21, m22, m24,
-            m41, m42, m44,
-        ).determinant();
-        const d34 = new Matrix3(
-            m11, m12, m13,
-            m21, m22, m23,
-            m41, m42, m43,
-        ).determinant();
-        const d41 = new Matrix3(
-            m12, m13, m14,
-            m22, m23, m24,
-            m32, m33, m34,
-        ).determinant();
-        const d42 = new Matrix3(
-            m11, m13, m14,
-            m21, m23, m24,
-            m31, m33, m34,
-        ).determinant();
-        const d43 = new Matrix3(
-            m11, m12, m14,
-            m21, m22, m24,
-            m31, m32, m34,
-        ).determinant();
-        const d44 = new Matrix3(
-            m11, m12, m13,
-            m21, m22, m23,
-            m31, m32, m33,
-        ).determinant();
+        /**
+         * determinant for
+         * m22, m23, m24,
+         * m32, m33, m34,
+         * m42, m43, m44,
+         */
+        const n11 = m22 * (m33 * m44 - m34 * m43) - m23 * (m32 * m44 - m34 * m42) + m24 * (m32 * m43 - m33 * m42);
+
+        /**
+         * determinant for
+         * m21, m23, m24,
+         * m31, m33, m34,
+         * m41, m43, m44,
+         */
+        const n12 = m21 * (m33 * m44 - m34 * m43) - m23 * (m31 * m44 - m34 * m41) + m24 * (m31 * m43 - m33 * m41);
+
+        /**
+         * determinant for
+         * m21, m22, m24,
+         * m31, m32, m34,
+         * m41, m42, m44,
+         */
+        const n13 = m21 * (m32 * m44 - m34 * m42) - m22 * (m31 * m44 - m34 * m41) + m24 * (m31 * m42 - m32 * m41);
+
+        /**
+         * determinant for
+         * m21, m22, m23,
+         * m31, m32, m33,
+         * m41, m42, m43
+         */
+        const n14 = m21 * (m32 * m43 - m33 * m42) - m22 * (m31 * m43 - m33 * m41) + m23 * (m31 * m42 - m32 * m41);
+
+        /**
+         * determinant for
+         * m12, m13, m14,
+         * m32, m33, m34,
+         * m42, m43, m44,
+         */
+        const n21 = m12 * (m33 * m44 - m34 * m43) - m13 * (m32 * m44 - m34 * m42) + m14 * (m32 * m43 - m33 * m42);
+
+        /**
+         * determinant for
+         * m11, m13, m14,
+         * m31, m33, m34,
+         * m41, m43, m44,
+         */
+        const n22 = m11 * (m33 * m44 - m34 * m43) - m13 * (m31 * m44 - m34 * m41) + m14 * (m31 * m43 - m33 * m41);
+
+        /**
+         * determinant for
+         * m11, m12, m14,
+         * m31, m32, m34,
+         * m41, m42, m44,
+         */
+        const n23 = m11 * (m32 * m44 - m34 * m42) - m12 * (m31 * m44 - m34 * m41) + m14 * (m31 * m42 - m32 * m41);
+
+        /**
+         * determinant for
+         * m11, m12, m13,
+         * m31, m32, m33,
+         * m41, m42, m43,
+         */
+        const n24 = m11 * (m32 * m43 - m33 * m42) - m12 * (m31 * m43 - m33 * m41) + m13 * (m31 * m42 - m32 * m41);
+
+        /**
+         * determinant for
+         * m12, m13, m14,
+         * m22, m23, m24,
+         * m42, m43, m44,
+         */
+        const n31 = m12 * (m23 * m44 - m24 * m43) - m13 * (m22 * m44 - m24 * m42) + m14 * (m22 * m43 - m23 * m42);
+
+        /**
+         * determinant for
+         * m11, m13, m14,
+         * m21, m23, m24,
+         * m41, m43, m44,
+         */
+        const n32 = m11 * (m23 * m44 - m24 * m43) - m13 * (m21 * m44 - m24 * m41) + m14 * (m21 * m43 - m23 * m41);
+
+        /**
+         * determinant for
+         * m11, m12, m14,
+         * m21, m22, m24,
+         * m41, m42, m44,
+         */
+        const n33 = m11 * (m22 * m44 - m24 * m42) - m12 * (m21 * m44 - m24 * m41) + m14 * (m21 * m42 - m22 * m41);
+
+        /**
+         * determinant for
+         * m11, m12, m13,
+         * m21, m22, m23,
+         * m41, m42, m43,
+         */
+        const n34 = m11 * m11 * (m22 * m43 - m23 * m42) - m12 * (m21 * m43 - m23 * m41) + m13 * (m21 * m42 - m22 * m41);
+
+        /**
+         * determinant for
+         * m12, m13, m14,
+         * m22, m23, m24,
+         * m32, m33, m34,
+         */
+        const n41 = m12 * (m23 * m34 - m24 * m33) - m13 * (m22 * m34 - m24 * m32) + m14 * (m22 * m33 - m23 * m32);
+
+        /**
+         * determinant for
+         * m11, m13, m14,
+         * m21, m23, m24,
+         * m31, m33, m34,
+         */
+        const n42 = m11 * (m23 * m34 - m24 * m33) - m13 * (m21 * m34 - m24 * m31) + m14 * (m21 * m33 - m23 * m31);
+
+        /**
+         * determinant for
+         * m11, m12, m14,
+         * m21, m22, m24,
+         * m31, m32, m34,
+         */
+        const n43 = m11 * (m22 * m34 - m24 * m32) - m12 * (m21 * m34 - m24 * m31) + m14 * (m21 * m32 - m22 * m31);
+
+        /**
+         * determinant for
+         * m11, m12, m13,
+         * m21, m22, m23,
+         * m31, m32, m33,
+         */
+        const n44 = m11 * (m22 * m33 - m23 * m32) - m12 * (m21 * m33 - m23 * m31) + m13 * (m21 * m32 - m22 * m31);
+
 
         return new Matrix4(
-            d11, -d12, d13, -d14,
-            d21, -d22, d23, -d24,
-            d31, -d32, d33, -d34,
-            d41, -d42, d43, -d44
+            n11, -n12, n13, -n14,
+            -n21, n22, -n23, n24,
+            n31, -n32, n33, -n34,
+            -n41, n42, -n43, n44
         ).transpose().multiplyScalar(d);
     }
 
@@ -430,31 +478,39 @@ class Matrix4 {
             m41, m42, m43, m44,
         ] = this.elements;
 
-        const d11 = new Matrix3(
-            m22, m23, m24,
-            m32, m33, m34,
-            m42, m43, m44
-        ).determinant();
+        /**
+         * determinant for 
+         *  m22, m23, m24,
+         *  m32, m33, m34,
+         *  m42, m43, m44
+         */
+        const n11 = m22 * (m33 * m44 - m34 * m43) - m23 * (m32 * m44 - m34 * m42) + m24 * (m32 * m43 - m33 * m42);
 
-        const d12 = new Matrix3(
-            m21, m23, m24,
-            m31, m33, m34,
-            m41, m43, m44
-        ).determinant();
+        /**
+         * determinant for 
+         * m21, m23, m24,
+         * m31, m33, m34,
+         * m41, m43, m44
+         */
+        const n12 = m21 * (m33 * m44 - m34 * m43) - m23 * (m31 * m44 - m34 * m41) + m24 * (m31 * m43 - m33 * m41);
 
-        const d13 = new Matrix3(
-            m21, m22, m24,
-            m31, m32, m34,
-            m41, m42, m44
-        ).determinant();
+        /**
+         * determinant for
+         * m21, m22, m24,
+         * m31, m32, m34,
+         * m41, m42, m44
+         */
+        const n13 = m21 * (m32 * m44 - m34 * m42) - m22 * (m31 * m44 - m34 * m41) + m24 * (m31 * m42 - m32 * m41);
 
-        const d14 = new Matrix3(
-            m21, m22, m23,
-            m31, m32, m33,
-            m41, m42, m43
-        ).determinant();
+        /**
+         * determinant for
+         * m21, m22, m23,
+         * m31, m32, m33,
+         * m41, m42, m43
+         */
+        const n14 = m21 * (m32 * m43 - m33 * m42) - m22 * (m31 * m43 - m33 * m41) + m23 * (m31 * m42 - m32 * m41);
 
-        return m11 * d11 - m12 * d12 + m13 * d13 - m14 * d14;
+        return m11 * n11 - m12 * n12 + m13 * n13 - m14 * n14;
     }
 
     /**
@@ -462,10 +518,31 @@ class Matrix4 {
      * @returns A new matrix
      */
     applyTranslate(v: Vector3) {
-        const arr = [...this.elements];
-        arr[3] += v.x;
-        arr[7] += v.y;
-        arr[11] + v.z;
+        const [
+            m11, m12, m13, m14,
+            m21, m22, m23, m24,
+            m31, m32, m33, m34,
+            m41, m42, m43, m44,
+        ] = this.elements;
+        const { x, y, z } = v;
+
+        const arr: number[] = [];
+        arr[0] = m11 + m41 * x;
+        arr[1] = m12 + m42 * x;
+        arr[2] = m13 + m43 * x;
+        arr[3] = m14 + m44 * x;
+        arr[4] = m21 + m41 * y;
+        arr[5] = m22 + m42 * y;
+        arr[6] = m23 + m43 * y;
+        arr[7] = m24 + m44 * y;
+        arr[8] = m31 + m41 * z;
+        arr[9] = m32 + m42 * z;
+        arr[10] = m33 + m43 * z;
+        arr[11] = m34 + m44 * z;
+        arr[12] = m41;
+        arr[13] = m42;
+        arr[14] = m43;
+        arr[15] = m44;
 
         return new Matrix4().fromArray(arr);
     }
@@ -475,19 +552,21 @@ class Matrix4 {
      * @returns A new matrix
      */
     applyScale(v: Vector3) {
+        const { x, y, z } = v;
         const arr = [...this.elements];
-        arr[0] *= v.x;
-        arr[1] *= v.x;
-        arr[2] *= v.x;
-        arr[3] *= v.x;
-        arr[4] *= v.y;
-        arr[5] *= v.y;
-        arr[6] *= v.y;
-        arr[7] *= v.y;
-        arr[8] *= v.z;
-        arr[9] *= v.z;
-        arr[10] *= v.z;
-        arr[11] *= v.z;
+
+        arr[0] *= x;
+        arr[1] *= x;
+        arr[2] *= x;
+        arr[3] *= x;
+        arr[4] *= y;
+        arr[5] *= y;
+        arr[6] *= y;
+        arr[7] *= y;
+        arr[8] *= z;
+        arr[9] *= z;
+        arr[10] *= z;
+        arr[11] *= z;
 
         return new Matrix4().fromArray(arr);
     }
@@ -498,7 +577,7 @@ class Matrix4 {
      * @returns A new matrix
      */
     applyRotateX(radian: number) {
-        return this.multiply(new Matrix4().fromRotateX(radian));
+        return this.preMultiply(new Matrix4().fromRotateX(radian));
     }
 
     /**
@@ -507,7 +586,7 @@ class Matrix4 {
      * @returns A new matrix
      */
     applyRotateY(radian: number) {
-        return this.multiply(new Matrix4().fromRotateY(radian));
+        return this.preMultiply(new Matrix4().fromRotateY(radian));
     }
 
     /**
@@ -516,7 +595,7 @@ class Matrix4 {
      * @returns A new matrix
      */
     applyRotateZ(radian: number) {
-        return this.multiply(new Matrix4().fromRotateZ(radian));
+        return this.preMultiply(new Matrix4().fromRotateZ(radian));
     }
 
     /**
