@@ -1,4 +1,4 @@
-import { Vector2 } from "."
+import { Vector2 } from "../../src";
 
 test('Vector2 constructor', () => {
     const v1 = new Vector2();

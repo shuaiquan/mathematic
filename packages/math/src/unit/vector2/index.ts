@@ -1,5 +1,5 @@
 import { IVec2 } from "./interface";
-import { ZERO, ONE, MAX, MIN, TWO_PI } from '../const';
+import { ZERO, ONE, MAX, MIN, TWO_PI } from '../../const';
 
 /**
  * Class representing a vector containing 2 coordinates

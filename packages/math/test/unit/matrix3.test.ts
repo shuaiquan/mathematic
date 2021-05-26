@@ -1,6 +1,4 @@
-import { Matrix3 } from "."
-import { Vector2 } from "../vector2";
-import "../jest";
+import { Matrix3, Vector2 } from "../../src"
 
 test('constructor + equals', () => {
     const m1 = new Matrix3();

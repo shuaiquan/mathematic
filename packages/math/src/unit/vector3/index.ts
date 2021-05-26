@@ -1,6 +1,6 @@
 import { IVec3 } from './interface';
-import { ZERO, ONE, MIN, MAX } from '../const';
-import { NumberUtil } from '../utils';
+import { ZERO, ONE, MIN, MAX } from '../../const';
+import { NumberUtil } from '../../utils';
 
 const VALUE = 0;
 
