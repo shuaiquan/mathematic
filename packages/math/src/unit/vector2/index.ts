@@ -1,5 +1,6 @@
 import { IVec2 } from "./interface";
 import { ZERO, ONE, MAX, MIN, TWO_PI } from '../../const';
+import { Matrix3 } from "../matrix3";
 
 /**
  * Class representing a vector containing 2 coordinates
@@ -24,6 +25,16 @@ class Vector2 {
      * Vector2 (-Infinity, -Infinity)
      */
     static readonly MIN = new Vector2(MIN, MIN);
+
+    /**
+     * The positive direction of the X-Axis (X轴正方向)
+     */
+    static X_DIRECTION = new Vector2(ONE, ZERO);
+
+    /**
+     * The positive direction of the Y-Axis (Y轴正方向)
+     */
+    static Y_DIRECTION = new Vector2(ZERO, ONE);
 
     /** 
      * The X value of the current vector
@@ -215,6 +226,23 @@ class Vector2 {
             return new Vector2(x / vx, y / vy)
         }
         return this.clone();
+    }
+
+    /**
+     * Apply matrix3 to the current vector
+     * @param matrix a Matrix3
+     * @returns A new Vector2
+     */
+    applyMatrix3(matrix: Matrix3) {
+        const [
+            m11, m12, m13,
+            m21, m22, m23,
+        ] = matrix.toArray();
+        const { x, y } = this;
+
+        const vx = m11 * x + m12 * y + m13;
+        const vy = m21 * x + m22 * y + m23;
+        return new Vector2(vx, vy);
     }
 
     /**

@@ -1,8 +1,9 @@
 import { IVec3 } from './interface';
 import { ZERO, ONE, MIN, MAX } from '../../const';
-import { NumberUtil } from '../../utils';
+import { Utils } from '../../utils';
+import { Matrix4 } from '../matrix4';
 
-const VALUE = 0;
+const NumberUtil = Utils.Number;
 
 /**
  * Class representing a vector containing 3 coordinates
@@ -28,9 +29,20 @@ class Vector3 {
      */
     static readonly MIN = new Vector3(MIN, MIN, MIN);
 
-    static lerpVectors(v: Vector3, w: Vector3, alpha: number = 1) {
-        return v.clone().lerp(w, alpha);
-    }
+    /**
+     * The positive direction of the X-Axis (X轴正方向)
+     */
+    static X_DIRECTION = new Vector3(ONE, ZERO, ZERO);
+
+    /**
+     * The positive direction of the Y-Axis (Y轴正方向)
+     */
+    static Y_DIRECTION = new Vector3(ZERO, ONE, ZERO);
+
+    /**
+     * The positive direction of the Z-Axis (Z轴正方向)
+     */
+    static Z_DIRECTION = new Vector3(ZERO, ZERO, ONE);
 
     /** 
      * The X value of the current vector
@@ -230,6 +242,25 @@ class Vector3 {
             return new Vector3(x / vx, y / vy, z / vz);
         }
         return this.clone();
+    }
+
+    /**
+     * Apply matrix4 to the current vector
+     * @param matrix A Matrix$
+     * @returns A new Vector3
+     */
+    applyMatrix4(matrix: Matrix4) {
+        const [
+            m11, m12, m13, m14,
+            m21, m22, m23, m24,
+            m31, m32, m33, m34,
+        ] = matrix.toArray();
+        const { x, y, z } = this;
+
+        const vx = m11 * x + m12 * y + m13 * z + m14;
+        const vy = m21 * x + m22 * y + m23 * z + m24;
+        const vz = m31 * x + m32 * y + m33 * z + m34;
+        return new Vector3(vx, vy, vz);
     }
 
     /**
