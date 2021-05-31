@@ -228,7 +228,7 @@ class Line2 {
      * Gets the interpolated number
      */
     getAlpha(point: Vector2, isSegment = false) {
-        const alpha = Utils.Vector2.dot3(this.start, this.end, point) / this.length;
+        const alpha = Utils.Vector2.dot3(this.start, this.end, point) / this.lengthSq;
         if (isSegment) {
             if (alpha > 1) {
                 return 1;
@@ -244,7 +244,7 @@ class Line2 {
      * @param alpha [0, 1]
      */
     interpolate(alpha: number) {
-        return this.start.add(this.direction.multiply(alpha));
+        return this.start.add(this.direction.multiply(this.length * alpha));
     }
 }
 
