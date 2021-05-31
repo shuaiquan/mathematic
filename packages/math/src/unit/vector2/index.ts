@@ -1,6 +1,9 @@
 import { IVec2 } from "./interface";
-import { ZERO, ONE, MAX, MIN, TWO_PI } from '../../const';
+import { ZERO, ONE, MAX, MIN, TWO_PI, SIX_DECIMAL_TOLERANCE } from '../../const';
 import { Matrix3 } from "../matrix3";
+import { Utils } from "../../utils";
+
+const NumberUtil = Utils.Number;
 
 /**
  * Class representing a vector containing 2 coordinates
@@ -302,15 +305,15 @@ class Vector2 {
     /**
      * Determines  whether the current vector and v are parallel
      */
-    isParallel(v: Vector2) {
-        return this.cross(v) === 0;
+    isParallel(v: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        return NumberUtil.isEqual(this.cross(v), 0, tolerance);
     }
 
     /**
-     * Determines whether the current vector and v are vertical
+     * Determines whether the current vector and v are orthogonal
      */
-    isVertical(v: Vector2) {
-        return this.dot(v) === 0;
+    isOrthogonal(v: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        return NumberUtil.isEqual(this.dot(v), 0, tolerance);
     }
 }
 

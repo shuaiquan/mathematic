@@ -297,8 +297,8 @@ test('Vector2 isParallel', () => {
     expect((new Vector2(100, 100)).isParallel(new Vector2(-10, -10))).toBe(true);
 });
 
-test('Vector2 isVertical', () => {
-    expect((new Vector2(0, 100)).isVertical(new Vector2(10, 0))).toBe(true);
-    expect((new Vector2(100, 100)).isVertical(new Vector2(-5, 5))).toBe(true);
-    expect((new Vector2(-5, -5)).isVertical(new Vector2(20, -20))).toBe(true);
+test('Vector2 isOrthogonal', () => {
+    expect((new Vector2(0, 100)).isOrthogonal(new Vector2(10, 0))).toBe(true);
+    expect((new Vector2(100, 100)).isOrthogonal(new Vector2(-5, 5))).toBe(true);
+    expect((new Vector2(-5, -5)).isOrthogonal(new Vector2(20, -20))).toBe(true);
 });

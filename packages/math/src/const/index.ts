@@ -21,3 +21,5 @@ export const MIN = -Infinity;
 export const PI = Math.PI;
 
 export const TWO_PI = PI * 2;
+
+export const SIX_DECIMAL_TOLERANCE = 1e-6;

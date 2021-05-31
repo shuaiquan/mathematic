@@ -1,5 +1,7 @@
+import { SIX_DECIMAL_TOLERANCE } from "../const";
+
 class NumberUtil {
-    static readonly TOLERANCE = 1E-5;
+    static readonly TOLERANCE = SIX_DECIMAL_TOLERANCE;
 
     static isEqual(v1: number, v2: number, tolerance = NumberUtil.TOLERANCE) {
         return Math.abs(v1 - v2) < tolerance;
