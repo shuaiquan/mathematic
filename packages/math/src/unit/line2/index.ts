@@ -4,15 +4,21 @@ import { Vector2 } from "../vector2";
 import { LineSide } from "./interface";
 
 /**
+ * 表示二维世界的一条线
+ * 
  * Class representing a line in Two-dimensional coordinate system
  */
 class Line2 {
     /**
+     * 线的起点
+     * 
      * Starting point of line or segment
      */
     start: Vector2 = new Vector2(ZERO, ZERO);
 
     /**
+     * 线的终点
+     * 
      * Ending point of line or segment
      */
     end: Vector2 = new Vector2(ZERO, ZERO);
@@ -31,10 +37,12 @@ class Line2 {
     }
 
     /**
-     * Sets the start and the end of the current line
+     * 设置起点和终点
+     * 
+     * Sets the start and the end of this line
      * @param start Starting point of line or segment
      * @param end Ending point of line or segment
-     * @returns The current line2
+     * @returns 当前实例 (This line)
      */
     set(start: Vector2, end: Vector2) {
         if (start.equals(end)) {
@@ -47,9 +55,11 @@ class Line2 {
     }
 
     /**
-     * Sets the start of the current line
+     * 设置起点
+     * 
+     * Sets the start of this line
      * @param point Starting point of line or segment
-     * @returns The current line2
+     * @returns 当前实例 (This line)
      */
     setStart(point: Vector2) {
         if (point.equals(this.end)) {
@@ -61,9 +71,11 @@ class Line2 {
     }
 
     /**
-     * Sets the end of the current line
+     * 设置终点
+     * 
+     * Sets the end of this line
      * @param point Ending point of line or segment
-     * @returns The current line2
+     * @returns 当前实例 (This line)
      */
     setEnd(point: Vector2) {
         if (point.equals(this.start)) {
@@ -75,6 +87,8 @@ class Line2 {
     }
 
     /**
+     * 线段的长度
+     * 
      * Gets the length of the current line
      */
     get length() {
@@ -82,6 +96,8 @@ class Line2 {
     }
 
     /**
+     * 线段长度的平方
+     * 
      * Gets the squared length of the current line
      */
     get lengthSq() {
@@ -89,6 +105,8 @@ class Line2 {
     }
 
     /**
+     * 线的方向 （起点 -> 终点）
+     * 
      * Gets the direction of the current line (start -> end)
      */
     get direction() {
@@ -96,6 +114,8 @@ class Line2 {
     }
 
     /**
+     * 线的方向角度
+     * 
      * Gets the angle of the current line's direction (start -> end)
      */
     get angle() {
@@ -103,6 +123,8 @@ class Line2 {
     }
 
     /**
+     * 线段的中点
+     * 
      * Gets the center point of the current line.
      */
     get center() {
@@ -110,6 +132,8 @@ class Line2 {
     }
 
     /**
+     * 线的正交左方向
+     * 
      * Gets the direction orthogonal to the current line and pointing to the left
      */
     get leftDirection() {
@@ -117,6 +141,8 @@ class Line2 {
     }
 
     /**
+     * 线的正交右方向
+     * 
      * Gets the direction orthogonal to the current line and pointing to the right
      */
     get rightDirection() {
@@ -124,6 +150,8 @@ class Line2 {
     }
 
     /**
+     * 平移线
+     * 
      * Translate the current line
      * @param v The vector the translation
      * @returns A new Line
@@ -134,6 +162,8 @@ class Line2 {
     }
 
     /**
+     * 获取点在线的哪一侧
+     * 
      * Gets which side of the current line the point is on
      * @returns LineSide
      */
@@ -148,6 +178,8 @@ class Line2 {
     }
 
     /**
+     * 点是否在直线上
+     * 
      * Determines if the point is on the line
      */
     isPointOnLine(point: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
@@ -155,6 +187,8 @@ class Line2 {
     }
 
     /**
+     * 点是否在线段上
+     * 
      * Determine if the point is on the segment
      */
     isPointOnSegment(point: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
@@ -162,9 +196,11 @@ class Line2 {
     }
 
     /**
+     * 获取点在线上的投影点
+     * 
      * Gets the projected point of the point onto the current line
-     * @param point target point
-     * @param isSegment Whether to treat the current line as a segment 
+     * @param point target point 目标点
+     * @param isSegment Whether to treat the current line as a segment 是否线段
      * @param useSegmentEnd When the projection point is beyond the line segment, 
      * use the end of the line segment as the projection point (当投影点超出线段时，是否使用线段端点作为投影点)
      */
@@ -182,6 +218,8 @@ class Line2 {
     }
 
     /**
+     * 获取点到线的距离
+     * 
      * Gets the distance from the point to the current line
      * @param point target point
      * @param isSegment Whether to treat the current line as a segment
@@ -193,6 +231,8 @@ class Line2 {
     }
 
     /**
+     * 和 line 是否平行
+     * 
      * Determine whether the current line and line area parallel
      */
     isParallel(line: Line2) {
@@ -200,6 +240,8 @@ class Line2 {
     }
 
     /**
+     * 和 line 是否正交垂直
+     * 
      * Determine whether the current line and line area orthogonal
      */
     isOrthogonal(line: Line2) {
@@ -207,20 +249,26 @@ class Line2 {
     }
 
     /**
-     * Determine whether the current line is a horizontal line (是否水平线)
+     * 是否水平线
+     * 
+     * Determine whether the current line is a horizontal line
      */
     isHorizontal() {
         return this.direction.equals(Vector2.X_DIRECTION) || this.direction.equals(Vector2.X_DIRECTION.inverse());
     }
 
     /**
-     * Determine whether the current line is a vertical line (是否竖直线)
+     * 是否竖直线
+     * 
+     * Determine whether the current line is a vertical line
      */
     isVertical() {
         return this.direction.equals(Vector2.Y_DIRECTION) || this.direction.equals(Vector2.Y_DIRECTION.inverse());
     }
 
     /**
+     * 计算点在线上的比例
+     * 
      * Gets the interpolated number
      */
     getAlpha(point: Vector2, isSegment = false) {
@@ -236,6 +284,8 @@ class Line2 {
     }
 
     /**
+     * 根据线性比例计算线上的一点
+     * 
      * Gets linear interpolation between start and end of this line
      * @param alpha [0, 1]
      */

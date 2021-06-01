@@ -6,6 +6,8 @@ import { Matrix4 } from '../matrix4';
 const NumberUtil = Utils.Number;
 
 /**
+ * 表示三维的一个向量
+ * 
  * Class representing a vector containing 3 coordinates
  */
 class Vector3 {
@@ -30,33 +32,45 @@ class Vector3 {
     static readonly MIN = new Vector3(MIN, MIN, MIN);
 
     /**
-     * The positive direction of the X-Axis (X轴正方向)
+     * X轴正方向
+     * 
+     * The positive direction of the X-Axis
      */
     static X_DIRECTION = new Vector3(ONE, ZERO, ZERO);
 
     /**
-     * The positive direction of the Y-Axis (Y轴正方向)
+     * Y轴正方向
+     * 
+     * The positive direction of the Y-Axis
      */
     static Y_DIRECTION = new Vector3(ZERO, ONE, ZERO);
 
     /**
-     * The positive direction of the Z-Axis (Z轴正方向)
+     * Z轴正方向
+     * 
+     * The positive direction of the Z-Axis
      */
     static Z_DIRECTION = new Vector3(ZERO, ZERO, ONE);
 
     /** 
+     * 向量的 x 值
+     * 
      * The X value of the current vector
      * @default 0
      */
     x: number = ZERO;
 
     /**
+     * 向量的 y 值
+     * 
      * The Y value of the current vector
      * @default 0
      */
     y: number = ZERO;
 
     /**
+     * 向量的 z 值
+     * 
      * The Z value of the current vector
      * @default 0
      */
@@ -78,17 +92,21 @@ class Vector3 {
     }
 
     /**
+     * 设置向量的值
+     * 
      * Sets values of the current vector
      * @param x x value
      * @param y y value
      * @param z z value
-     * @returns The current vector3
+     * @returns 当前向量 (this vector3)
      */
     set(x?: number, y?: number, z?: number): Vector3;
     /**
+     * 设置向量的值
+     * 
      * Sets values of the current vector
      * @param point An object that contains the values x, y and z
-     * @returns The current vector3
+     * @returns 当前向量 (this vector3)
      */
     set(point: Partial<IVec3>): Vector3;
     set() {
@@ -106,8 +124,10 @@ class Vector3 {
     }
 
     /**
+     * 设置向量的 x 值
+     * 
      * Sets the x value of the current vector
-     * @returns The current Vector3
+     * @returns 当前向量 (this vector3)
      */
     setX(x: number) {
         this.x = x;
@@ -115,8 +135,10 @@ class Vector3 {
     }
 
     /**
+     * 设置向量的 y 值
+     * 
      * Sets the y value of the current vector
-     * @returns The current Vector3
+     * @returns 当前向量 (this vector3)
      */
     setY(y: number) {
         this.y = y;
@@ -124,8 +146,10 @@ class Vector3 {
     }
 
     /**
+     * 设置向量的 z 值
+     * 
      * Sets the z value of the current vector
-     * @returns The current Vector3
+     * @returns 当前向量 (this vector3)
      */
     setZ(z: number) {
         this.z = z;
@@ -133,6 +157,8 @@ class Vector3 {
     }
 
     /**
+     * 将向量 v 的值拷贝给当前向量
+     * 
      * Copies v to this vector
      */
     copy(v: Vector3) {
@@ -140,6 +166,8 @@ class Vector3 {
     }
 
     /**
+     * 复制当前向量
+     * 
      * Clones this vector to a new vector
      */
     clone() {
@@ -147,6 +175,8 @@ class Vector3 {
     }
 
     /**
+     * 向量的长度
+     * 
      * Computes length of this vector.
      */
     get length() {
@@ -154,6 +184,8 @@ class Vector3 {
     }
 
     /**
+     * 向量长度的平方
+     * 
      * Computes squared length of this vector.
      */
     get lengthSq() {
@@ -161,6 +193,8 @@ class Vector3 {
     }
 
     /**
+     * 向量加法
+     * 
      * Adds v with the current vector
      * @param {(number|IVec3)} value a scalar or a Vector3
      * @returns A new Vector3
@@ -182,6 +216,8 @@ class Vector3 {
     }
 
     /**
+     * 向量减法
+     * 
      * Subtracts v from the current vector
      * @param {(number|IVec3)} value a scalar or a Vector3
      * @returns A new Vector3
@@ -203,6 +239,8 @@ class Vector3 {
     }
 
     /**
+     * 向量乘法
+     * 
      * Multiplies the current vector by v.
      * @param {(number|IVec3)} value a scalar or a Vector3
      * @returns A new Vector3
@@ -224,6 +262,8 @@ class Vector3 {
     }
 
     /**
+     * 向量除法
+     * 
      * Divides the current vector by v.
      * @param {(number|IVec3)} value a scalar or a Vector3
      * @returns A new Vector3
@@ -245,6 +285,8 @@ class Vector3 {
     }
 
     /**
+     * 对当前向量应用矩阵
+     * 
      * Apply matrix4 to the current vector
      * @param matrix A Matrix$
      * @returns A new Vector3
@@ -264,6 +306,8 @@ class Vector3 {
     }
 
     /**
+     * 逆向量
+     * 
      * Inverse the current vector
      * @returns A new Vector3
      */
@@ -273,6 +317,8 @@ class Vector3 {
     }
 
     /**
+     * 单位向量
+     * 
      * Normalizes this vector.
      * @returns A new Vector3
      */
@@ -294,6 +340,8 @@ class Vector3 {
     }
 
     /**
+     * 点乘
+     * 
      * Computes dot product of this vector and v
      */
     dot(v: Vector3) {
@@ -301,6 +349,8 @@ class Vector3 {
     }
 
     /**
+     * 叉乘
+     * 
      * Computes cross product of this vector and v
      * 
      * @returns {Vector3} new Vector
@@ -314,6 +364,8 @@ class Vector3 {
     }
 
     /**
+     * 两个向量是否相等
+     * 
      * Determines whether this vector and v are equal
      */
     equals(v: Vector3) {
@@ -322,6 +374,8 @@ class Vector3 {
     }
 
     /**
+     * 两个向量是否平行
+     * 
      * Determines  whether this vector and v are parallel
      */
     isParallel(v: Vector3) {
@@ -337,9 +391,11 @@ class Vector3 {
     }
 
     /**
-     * Determines whether this vector and v are vertical
+     * 两个向量是否正交垂直
+     * 
+     * Determines whether this vector and v are orthogonal
      */
-    isVertical(v: Vector3) {
+    isOrthogonal(v: Vector3) {
         return this.dot(v) === 0;
     }
 }

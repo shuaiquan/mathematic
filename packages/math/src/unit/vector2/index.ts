@@ -6,6 +6,8 @@ import { Utils } from "../../utils";
 const NumberUtil = Utils.Number;
 
 /**
+ * 表示二维的一个向量
+ * 
  * Class representing a vector containing 2 coordinates
  */
 class Vector2 {
@@ -30,22 +32,30 @@ class Vector2 {
     static readonly MIN = new Vector2(MIN, MIN);
 
     /**
-     * The positive direction of the X-Axis (X轴正方向)
+     * X轴正方向
+     * 
+     * The positive direction of the X-Axis
      */
     static X_DIRECTION = new Vector2(ONE, ZERO);
 
     /**
-     * The positive direction of the Y-Axis (Y轴正方向)
+     * Y轴正方向
+     * 
+     * The positive direction of the Y-Axis
      */
     static Y_DIRECTION = new Vector2(ZERO, ONE);
 
     /** 
+     * 向量的 x 值
+     * 
      * The X value of the current vector
      * @default 0
      */
     x: number = ZERO;
 
     /**
+     * 向量的 y 值
+     * 
      * The Y value of the current vector
      * @default 0
      */
@@ -66,16 +76,20 @@ class Vector2 {
     }
 
     /**
-     * Sets values of the current vector
+     * 设置向量的值
+     * 
+     * Sets values of this vector
      * @param x x value
      * @param y y value
-     * @returns The current vector2
+     * @returns 当前向量 (this vector2)
      */
     set(x?: number, y?: number): Vector2;
     /**
-     * Sets values of the current vector
+     * 设置向量的值
+     * 
+     * Sets values of this vector
      * @param point A Object that contains the values x and y
-     * @returns The current vector2
+     * @returns 当前向量 (this vector2)
      */
     set(point: Partial<IVec2>): Vector2;
     set() {
@@ -91,8 +105,10 @@ class Vector2 {
     }
 
     /**
-     * Sets the X value of the current vector
-     * @returns The current Vector2
+     * 设置向量的 x 值
+     * 
+     * Sets the X value of this vector
+     * @returns 当前向量 (this vector2)
      */
     setX(x: number) {
         this.x = x;
@@ -100,8 +116,10 @@ class Vector2 {
     }
 
     /**
-     * Sets the Y value of the current vector
-     * @returns The current Vector2
+     * 设置向量的 y 值
+     * 
+     * Sets the Y value of this vector
+     * @returns 当前向量 (this vector2)
      */
     setY(y: number) {
         this.y = y;
@@ -109,39 +127,51 @@ class Vector2 {
     }
 
     /**
-     * Copies v to the current vector
-     * @returns The current value
+     * 将向量 v 的值拷贝给当前向量
+     * 
+     * Copies v to this vector
+     * @returns 当前向量 (this vector2)
      */
     copy(v: Vector2) {
         return this.set(v);
     }
 
     /**
-     * Clones the current vector to a new vector
-     * @returns A new Vector
+     * 复制当前向量
+     * 
+     * Clones this vector to a new vector
+     * @returns 新的向量 (A new Vector)
      */
     clone() {
         return new Vector2(this);
     }
 
     /**
-     * Get the length of the current vector.
+     * 向量的长度
+     * 
+     * Get the length of this vector.
      */
     get length() {
         return Math.sqrt(this.lengthSq);
     }
 
     /**
-     * Get the squared length of the current vector.
+     * 向量长度的平方
+     * 
+     * Get the squared length of this vector.
      */
     get lengthSq() {
         return this.x * this.x + this.y * this.y;
     }
 
     /**
+     * 向量的角度
+     * 
      * Computes the angle in radians with respect to the horizontal left axis
      * 
-     * Radians in range [ 0, 2 * PI ), counterclockwise (逆时针为正)
+     * 弧度制，范围在 [ 0, 2 * PI )，逆时针为正
+     * 
+     * Radians in range [ 0, 2 * PI ), counterclockwise
      */
     get angle() {
         // Math.atan2 value range: 
@@ -152,6 +182,8 @@ class Vector2 {
     }
 
     /**
+     * 向量加法
+     * 
      * Adds v with the current vector
      * @param {(number|IVec2)} value a scalar or a vector2
      * @returns A new Vector2
@@ -172,6 +204,8 @@ class Vector2 {
     }
 
     /**
+     * 向量减法
+     * 
      * Subtracts v from the current vector
      * @param {(number|IVec2)} value a scalar or a vector2
      * @returns A new Vector2
@@ -192,6 +226,8 @@ class Vector2 {
     }
 
     /**
+     * 向量乘法
+     * 
      * Multiplies the current vector by v.
      * @param {(number|IVec2)} value a scalar or a vector2
      * @returns A new Vector2
@@ -212,6 +248,8 @@ class Vector2 {
     }
 
     /**
+     * 向量除法
+     * 
      * Divides the current vector by v.
      * @param {(number|IVec2)} value a scalar or a vector2
      * @returns A new Vector2
@@ -232,6 +270,8 @@ class Vector2 {
     }
 
     /**
+     * 对当前向量应用矩阵
+     * 
      * Apply matrix3 to the current vector
      * @param matrix a Matrix3
      * @returns A new Vector2
@@ -249,6 +289,8 @@ class Vector2 {
     }
 
     /**
+     * 逆向量
+     * 
      * Inverse the current vector
      * @returns A new Vector2
      */
@@ -259,6 +301,8 @@ class Vector2 {
     }
 
     /**
+     * 单位向量
+     * 
      * Normalizes the current vector.
      * @returns A new Vector2
      */
@@ -279,6 +323,8 @@ class Vector2 {
     }
 
     /**
+     * 点乘
+     * 
      * Computes dot product of the current vector and v
      */
     dot(v: Vector2) {
@@ -286,6 +332,8 @@ class Vector2 {
     }
 
     /**
+     * 叉乘
+     * 
      * Computes cross product of the current vector and v
      * 
      * The cross product of Vector2 is just a scalar of z-axis
@@ -295,6 +343,8 @@ class Vector2 {
     }
 
     /**
+     * 两个向量是否相等
+     * 
      * Determines whether the current vector and v are equal
      */
     equals(v: Vector2) {
@@ -303,6 +353,8 @@ class Vector2 {
     }
 
     /**
+     * 两个向量是否平行
+     * 
      * Determines  whether the current vector and v are parallel
      */
     isParallel(v: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
@@ -310,6 +362,8 @@ class Vector2 {
     }
 
     /**
+     * 两个向量是否正交垂直
+     * 
      * Determines whether the current vector and v are orthogonal
      */
     isOrthogonal(v: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {

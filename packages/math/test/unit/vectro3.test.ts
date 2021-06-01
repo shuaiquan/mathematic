@@ -219,6 +219,6 @@ test('Vector3 isParallel', () => {
 });
 
 test('Vector3 isVertical', () => {
-    expect((new Vector3(0, 1, 0)).isVertical(new Vector3(1, 0, 0))).toBe(true);
-    expect((new Vector3(-1, 0, 0)).isVertical(new Vector3(0, 0, -1))).toBe(true);
+    expect((new Vector3(0, 1, 0)).isOrthogonal(new Vector3(1, 0, 0))).toBe(true);
+    expect((new Vector3(-1, 0, 0)).isOrthogonal(new Vector3(0, 0, -1))).toBe(true);
 });
