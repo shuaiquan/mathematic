@@ -220,10 +220,6 @@ class Line2 {
         return this.direction.equals(Vector2.Y_DIRECTION) || this.direction.equals(Vector2.Y_DIRECTION.inverse());
     }
 
-    intersect(line: Line2) {
-        // todo 做到 static 方法上更合适一点，区分直线和线段
-    }
-
     /**
      * Gets the interpolated number
      */
