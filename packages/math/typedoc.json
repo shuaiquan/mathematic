@@ -1,0 +1,9 @@
+{
+    "entryPoints": [
+        "./src/index.ts"
+    ],
+    "out": "./docs",
+    "theme": "minimal",
+    "name": "Math Library",
+    "excludeInternal": true
+}
