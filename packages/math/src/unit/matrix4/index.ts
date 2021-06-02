@@ -4,11 +4,14 @@ import { Vector3 } from "../vector3";
 const Matrix4_SIZE = 16;
 
 /**
+ * 表示一个 4 x 4 的矩阵
  * Class representing a four by four matrix
  */
 class Matrix4 {
     /**
-     * Zero Matrix4 (零矩阵)
+     * 零矩阵
+     * 
+     * Zero Matrix4
      */
     static readonly Zero = new Matrix4(
         0, 0, 0, 0,
@@ -18,7 +21,9 @@ class Matrix4 {
     );
 
     /**
-     * Identity Matrix4 (单位矩阵)
+     * 单位矩阵
+     * 
+     * Identity Matrix4
      */
     static readonly Identity = new Matrix4(
         1, 0, 0, 0,
@@ -28,6 +33,8 @@ class Matrix4 {
     )
 
     /**
+     * 依次将每个矩阵乘起来
+     * 
      * Multiplies the matrices
      */
     static multiplyMatrices(matrices: Matrix4[]) {
@@ -35,6 +42,8 @@ class Matrix4 {
     }
 
     /**
+     * 依次将每个矩阵左乘起来
+     * 
      * Multiplies the matrices to the left
      */
     static preMultiplyMatrices(matrices: Matrix4[]) {
@@ -116,6 +125,8 @@ class Matrix4 {
     }
 
     /**
+     * 设置矩阵的值
+     * 
      * The Matrix4 entries are in the following order:
      * 
      *  m11  m12  m13 m14
@@ -141,10 +152,12 @@ class Matrix4 {
     }
 
     /**
+     * 将数组设置为矩阵的值
+     * 
      * Sets values of the current matrix by an array
      * @param elements An array of matrix elements
      * @param offset Offset to start
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromArray(elements: number[], offset: number = 0) {
         for (let i = 0; i < Matrix4_SIZE; i++) {
@@ -159,6 +172,8 @@ class Matrix4 {
     }
 
     /**
+     * 将矩阵的值转换成数组输出
+     * 
      * Outputs the elements of the current matrix as an array
      */
     toArray() {
@@ -166,8 +181,10 @@ class Matrix4 {
     }
 
     /**
+     * 根据平移变换设置矩阵的值
+     * 
      * Sets this matrix from translate transform
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromTranslate(v: Vector3) {
         this.set(
@@ -181,8 +198,10 @@ class Matrix4 {
     }
 
     /**
+     * 根据缩放变换设置矩阵的值
+     * 
      * Sets this matrix from scale transform
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromScale(v: Vector3) {
         const { x, y, z } = v;
@@ -197,9 +216,11 @@ class Matrix4 {
     }
 
     /**
+     * 根据绕 X 轴的旋转变换设置矩阵的值
+     * 
      * Sets this matrix from rotate transform about X-axis
      * @param radian theta Rotation angle in radians.
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromRotateX(radian: number) {
         const c = Math.cos(radian);
@@ -214,9 +235,11 @@ class Matrix4 {
     }
 
     /**
+     * 根据绕 Y 轴的旋转变换设置矩阵的值
+     * 
      * Sets this matrix from rotate transform about Y-axis
      * @param radian theta Rotation angle in radians.
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromRotateY(radian: number) {
         const c = Math.cos(radian);
@@ -231,9 +254,11 @@ class Matrix4 {
     }
 
     /**
+     * 根据绕 Z 轴的旋转变换设置矩阵的值
+     * 
      * Sets this matrix from rotate transform about Z-axis
      * @param radian theta Rotation angle in radians.
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromRotateZ(radian: number) {
         const c = Math.cos(radian);
@@ -248,40 +273,50 @@ class Matrix4 {
     }
 
     /**
+     * 将矩阵 m 的值拷贝给当前矩阵
+     * 
      * Copies m to the current matrix
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     copy(m: Matrix4) {
         return this.fromArray(m.toArray());
     }
 
     /**
+     * 复制当前矩阵
+     * 
      * Clones the current matrix to a new matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     clone() {
         return new Matrix4().fromArray(this.toArray());
     }
 
     /**
+     * 乘矩阵 m
+     * 
      * Multiplies the current matrix by m Matrix.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     multiply(m: Matrix4) {
         return new Matrix4().fromArray(Matrix4.product(this, m));
     }
 
     /**
+     * 左乘矩阵 m
+     * 
      * Multiplies the current matrix to the left by m Matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     preMultiply(m: Matrix4) {
         return new Matrix4().fromArray(Matrix4.product(m, this));
     }
 
     /**
+     * 乘一个标量
+     * 
      * Multiplies this matrix by a number;
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     multiplyScalar(v: number) {
         const arr: number[] = [];
@@ -296,8 +331,10 @@ class Matrix4 {
     }
 
     /**
-     * Transposes this matrix (转置矩阵)
-     * @returns A new matrix
+     * 转置矩阵
+     * 
+     * Transposes this matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     transpose() {
         const arr: number[] = [];
@@ -312,8 +349,10 @@ class Matrix4 {
     }
 
     /**
-     * Inverts this matrix （逆矩阵）
-     * @returns A new matrix
+     * 计算逆矩阵
+     * 
+     * Inverts this matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     invert() {
         const determinant = this.determinant();
@@ -468,6 +507,8 @@ class Matrix4 {
     }
 
     /**
+     * 计算行列式
+     * 
      * Calculates the determinant of this Matrix4 (行列式)
      */
     determinant() {
@@ -514,8 +555,10 @@ class Matrix4 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加平移变化后的矩阵
+     * 
      * Applies translate transform to this matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyTranslate(v: Vector3) {
         const [
@@ -548,8 +591,10 @@ class Matrix4 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加缩放变化后的矩阵
+     * 
      * Applies scale transform to this matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyScale(v: Vector3) {
         const { x, y, z } = v;
@@ -572,33 +617,41 @@ class Matrix4 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加绕 X 轴旋转变化后的矩阵
+     * 
      * Applies rotate transform about X-axis to this matrix
      * @param radian theta Rotation angle in radians.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyRotateX(radian: number) {
         return this.preMultiply(new Matrix4().fromRotateX(radian));
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加绕 Y 轴旋转变化后的矩阵
+     * 
      * Applies rotate transform about Y-axis to this matrix
      * @param radian theta Rotation angle in radians.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyRotateY(radian: number) {
         return this.preMultiply(new Matrix4().fromRotateY(radian));
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加绕 Z 轴旋转变化后的矩阵
+     * 
      * Applies rotate transform about Z-axis to this matrix
      * @param radian theta Rotation angle in radians.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyRotateZ(radian: number) {
         return this.preMultiply(new Matrix4().fromRotateZ(radian));
     }
 
     /**
+     * 判断矩阵是否相等
+     * 
      * Determines whether the current matrix and m are equal
      */
     equals(m: Matrix4) {

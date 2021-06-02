@@ -3,11 +3,15 @@ import { Vector2 } from "../vector2";
 const MATRIX3_SIZE = 9;
 
 /**
+ * 表示一个 3 x 3 的矩阵
+ * 
  * Class representing a three by there matrix
  */
 class Matrix3 {
     /**
-     * Zero Matrix3 (零矩阵)
+     * 零矩阵
+     * 
+     * Zero Matrix3
      */
     static readonly Zero = new Matrix3(
         0, 0, 0,
@@ -16,7 +20,9 @@ class Matrix3 {
     );
 
     /**
-     * Identity Matrix3 (单位矩阵)
+     * 单位矩阵
+     * 
+     * Identity Matrix3
      */
     static readonly Identity = new Matrix3(
         1, 0, 0,
@@ -25,6 +31,8 @@ class Matrix3 {
     )
 
     /**
+     * 依次将每个矩阵乘起来
+     * 
      * Multiplies the matrices
      */
     static multiplyMatrices(matrices: Matrix3[]) {
@@ -32,6 +40,8 @@ class Matrix3 {
     }
 
     /**
+     * 依次将每个矩阵左乘起来
+     * 
      * Multiplies the matrices to the left
      */
     static preMultiplyMatrices(matrices: Matrix3[]) {
@@ -99,6 +109,8 @@ class Matrix3 {
     }
 
     /**
+     * 设置矩阵的值
+     * 
      * The matrix3 entries are in the following order:
      * 
      *  m11  m12  m13
@@ -120,10 +132,12 @@ class Matrix3 {
     }
 
     /**
+     * 将数组设置为矩阵的值
+     * 
      * Sets values of the current matrix by an array
      * @param elements An array of matrix elements
      * @param offset Offset to start
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromArray(elements: number[], offset: number = 0) {
         for (let i = 0; i < MATRIX3_SIZE; i++) {
@@ -138,6 +152,8 @@ class Matrix3 {
     }
 
     /**
+     * 将矩阵的值转换成数组输出
+     * 
      * Outputs the elements of the current matrix as an array
      */
     toArray() {
@@ -145,8 +161,10 @@ class Matrix3 {
     }
 
     /**
+     * 根据平移变换设置矩阵的值
+     * 
      * Sets this matrix from translate transform
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromTranslate(v: Vector2) {
         this.set(
@@ -159,8 +177,10 @@ class Matrix3 {
     }
 
     /**
+     * 根据缩放变换设置矩阵的值
+     * 
      * Sets this matrix from scale transform
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromScale(v: Vector2) {
         this.set(
@@ -173,9 +193,11 @@ class Matrix3 {
     }
 
     /**
+     * 根据旋转变换设置矩阵的值
+     * 
      * Sets this matrix from rotate transform
      * @param radian theta Rotation angle in radians.
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     fromRotate(radian: number) {
         const c = Math.cos(radian);
@@ -191,14 +213,18 @@ class Matrix3 {
     }
 
     /**
+     * 将矩阵 m 的值拷贝给当前矩阵
+     * 
      * Copies m to the current matrix
-     * @returns The current matrix
+     * @returns 当前矩阵 this matrix
      */
     copy(m: Matrix3) {
         return this.fromArray(m.toArray());
     }
 
     /**
+     * 复制当前矩阵
+     * 
      * Clones the current matrix to a new matrix
      * @returns A new matrix
      */
@@ -207,24 +233,30 @@ class Matrix3 {
     }
 
     /**
+     * 乘矩阵 m
+     * 
      * Multiplies the current matrix by m Matrix.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     multiply(m: Matrix3) {
         return new Matrix3().fromArray(Matrix3.product(this, m));
     }
 
     /**
+     * 左乘矩阵 m
+     * 
      * Multiplies the current matrix to the left by m Matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     preMultiply(m: Matrix3) {
         return new Matrix3().fromArray(Matrix3.product(m, this));
     }
 
     /**
+     * 乘一个标量
+     * 
      * Multiplies this matrix by a number;
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     multiplyScalar(v: number) {
         const arr: number[] = [];
@@ -238,8 +270,10 @@ class Matrix3 {
     }
 
     /**
-     * Transposes this matrix (转置矩阵)
-     * @returns A new matrix
+     * 转置矩阵
+     * 
+     * Transposes this matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     transpose() {
         const arr: number[] = [];
@@ -253,8 +287,10 @@ class Matrix3 {
     }
 
     /**
+     * 计算逆矩阵
+     * 
      * Inverts this matrix （逆矩阵）
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     invert() {
         const determinant = this.determinant();
@@ -288,6 +324,8 @@ class Matrix3 {
     }
 
     /**
+     * 计算行列式
+     * 
      * Calculates the determinant of this matrix3 (行列式)
      */
     determinant() {
@@ -303,8 +341,10 @@ class Matrix3 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加平移变化后的矩阵
+     * 
      * Applies translate transform to this matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyTranslate(v: Vector2) {
         const [
@@ -329,8 +369,10 @@ class Matrix3 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加缩放变化后的矩阵
+     * 
      * Applies scale transform to this matrix
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyScale(v: Vector2) {
         const [
@@ -355,9 +397,11 @@ class Matrix3 {
     }
 
     /**
+     * 计算在当前矩阵的基础上叠加旋转变化后的矩阵
+     * 
      * Applies rotate transform to this matrix
      * @param radian theta Rotation angle in radians.
-     * @returns A new matrix
+     * @returns 新的矩阵 (A new matrix)
      */
     applyRotate(radian: number) {
         const [
@@ -384,6 +428,8 @@ class Matrix3 {
     }
 
     /**
+     * 判断矩阵是否相等
+     * 
      * Determines whether the current matrix and m are equal
      */
     equals(m: Matrix3) {
