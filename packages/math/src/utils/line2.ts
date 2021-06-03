@@ -1,4 +1,5 @@
 import { Line2, LineSide } from "../unit/line2";
+import { Vector2 } from "../unit/vector2";
 
 class Line2Util {
     /**
@@ -42,8 +43,45 @@ class Line2Util {
             (startSide1 !== endSide1 && startSide2 !== endSide1);
     }
 
-    static lineIntersectLine(l1: Line2, l2: Line2) {
-        // todo 直线和直线相交
+    /**
+     * Calculate the intersection of line1 and line2
+     * @param line1 straight line
+     * @param line2 straight line
+     * @returns 
+     */
+    static lineIntersectLine(line1: Line2, line2: Line2) {
+        // { x0, y0 } { x1, y1 } 是 line1 上的两个点
+        const { x: x0, y: y0 } = line1.start;
+        const { x: x1, y: y1 } = line1.end;
+        // { x2, y2 } { x3, y3 } 是 line2 上的两个点
+        const { x: x2, y: y2 } = line2.start;
+        const { x: x3, y: y3 } = line2.end;
+
+        /**
+         * 计算直线一般式
+         * Ax + By + C = 0
+         * 
+         * A = y2 - y1;
+         * B = x1 - x2;
+         * C = x1 * y2 - x2 * y1;
+         */
+        const a1 = y1 - y0;
+        const b1 = x0 - x1;
+        const c1 = x0 * y1 - x1 * y0;
+        const a2 = y3 - y2;
+        const b2 = x2 - x3;
+        const c2 = x2 * y3 - x3 * y2;
+
+        // A1 * B2 = B1 * A2 则两直线平行，详见：https://baike.baidu.com/item/%E4%B8%80%E8%88%AC%E5%BC%8F
+        const result = a1 * b2 - a2 * b1;
+        if (result === 0) {
+            // 两直线平行
+            return undefined;
+        }
+
+        const x = (b1 * c2 - b2 * c1) / result;
+        const y = (a2 * c1 - a1 * c2) / result;
+        return new Vector2(x, y);
     }
 
     static lineIntersectSegment(line: Line2, segment: Line2) {
