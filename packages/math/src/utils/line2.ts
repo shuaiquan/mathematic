@@ -47,7 +47,6 @@ class Line2Util {
      * Calculate the intersection of line1 and line2
      * @param line1 straight line
      * @param line2 straight line
-     * @returns 
      */
     static lineIntersectLine(line1: Line2, line2: Line2) {
         // { x0, y0 } { x1, y1 } 是 line1 上的两个点
@@ -63,14 +62,14 @@ class Line2Util {
          * 
          * A = y2 - y1;
          * B = x1 - x2;
-         * C = x1 * y2 - x2 * y1;
+         * C = x2 * y1 - x1 * y2;
          */
         const a1 = y1 - y0;
         const b1 = x0 - x1;
-        const c1 = x0 * y1 - x1 * y0;
+        const c1 = x1 * y0 - x2 * y1;
         const a2 = y3 - y2;
         const b2 = x2 - x3;
-        const c2 = x2 * y3 - x3 * y2;
+        const c2 = x3 * y2 - x2 * y3;
 
         // A1 * B2 = B1 * A2 则两直线平行，详见：https://baike.baidu.com/item/%E4%B8%80%E8%88%AC%E5%BC%8F
         const result = a1 * b2 - a2 * b1;
@@ -84,12 +83,32 @@ class Line2Util {
         return new Vector2(x, y);
     }
 
+    /**
+     * Calculate the intersection of line and segment
+     * @param line straight line
+     * @param segment segment line
+     */
     static lineIntersectSegment(line: Line2, segment: Line2) {
-        // todo 直线和线段相交
+        const point = this.lineIntersectLine(line, segment);
+        if (point) {
+            if (segment.isPointOnSegment(point)) {
+                return point;
+            }
+        }
     }
 
-    static segmentIntersectSegment(s1: Line2, s2: Line2) {
-        // todo 线段和线段相交
+    /**
+     * Calculate the intersection of segment1 and segment2
+     * @param segment1 segment line
+     * @param segment2 segment line
+     */
+    static segmentIntersectSegment(segment1: Line2, segment2: Line2) {
+        const point = this.lineIntersectLine(segment1, segment2);
+        if (point) {
+            if (segment1.isPointOnSegment(point) && segment2.isPointOnSegment(point)) {
+                return point;
+            }
+        }
     }
 }
 
