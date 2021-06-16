@@ -39,8 +39,13 @@ class Line2Util {
         const endSide1 = segment2.getSide(segment1.end);
         const startSide2 = segment1.getSide(segment2.start);
         const endSide2 = segment1.getSide(segment2.end);
-        return (startSide1 === LineSide.On || endSide1 === LineSide.On || startSide2 === LineSide.On || endSide2 === LineSide.On) ||
-            (startSide1 !== endSide1 && startSide2 !== endSide1);
+        if (startSide1 === LineSide.On && segment2.isPointOnSegment(segment1.start) ||
+            endSide1 === LineSide.On && segment2.isPointOnSegment(segment1.end) ||
+            startSide2 === LineSide.On && segment1.isPointOnSegment(segment2.start) ||
+            endSide2 === LineSide.On && segment1.isPointOnSegment(segment2.end)) {
+            return true;
+        }
+        return startSide1 !== endSide1 && startSide2 !== endSide2;
     }
 
     /**
@@ -60,13 +65,19 @@ class Line2Util {
          * 计算直线一般式
          * Ax + By + C = 0
          * 
+         * 配置一：
          * A = y2 - y1;
          * B = x1 - x2;
          * C = x2 * y1 - x1 * y2;
+         * 
+         * 配置二：
+         * A = y1 - y2;
+         * B = x2 - x1;
+         * C = x1 * y2 - x2 * y1
          */
         const a1 = y1 - y0;
         const b1 = x0 - x1;
-        const c1 = x1 * y0 - x2 * y1;
+        const c1 = x1 * y0 - x0 * y1;
         const a2 = y3 - y2;
         const b2 = x2 - x3;
         const c2 = x3 * y2 - x2 * y3;

@@ -169,7 +169,7 @@ class Line2 {
      */
     getSide(point: Vector2) {
         const product = Utils.Vector2.cross3(this.start, this.end, point);
-        if (product === 0) {
+        if (Utils.Number.isEqual(product, 0)) {
             return LineSide.On;
         } else if (product > 0) {
             return LineSide.Left;
