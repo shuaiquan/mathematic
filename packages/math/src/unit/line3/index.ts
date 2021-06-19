@@ -1,4 +1,5 @@
 import { SIX_DECIMAL_TOLERANCE, ZERO } from "../../const";
+import { Utils } from "../../utils";
 import { Vector3 } from "../vector3";
 
 /**
@@ -136,13 +137,22 @@ class Line3 {
      * 获取点在线上的投影点
      * 
      * Gets the projected point of the point onto the current line
-     * @param point target point 目标点
-     * @param isSegment Whether to treat the current line as a segment 是否线段
-     * @param useSegmentEnd When the projection point is beyond the line segment, 
-     * use the end of the line segment as the projection point (当投影点超出线段时，是否使用线段端点作为投影点)
+     * 
+     * @param point 目标点 target point
+     * @param isSegment 是否线段 Whether to treat the current line as a segment
+     * @param useSegmentEnd 在将直线视为线段的情况下，如果投影点在线段外，是返回线段的端点还是 undefined. (When the projection point is beyond the line segment, 
+     * use the end of the line segment as the projection point)
      */
     getProjectedPoint(point: Vector3, isSegment: boolean = false, useSegmentEnd: boolean = false) {
-        // todo
+        const alpha = this.getAlpha(point);
+        if (isSegment) {
+            if (alpha < 0) {
+                return useSegmentEnd ? this.start.clone() : undefined;
+            } else if (alpha > 1) {
+                return useSegmentEnd ? this.end.clone() : undefined;
+            }
+        }
+        return this.interpolate(alpha);
     }
 
     /**
@@ -151,34 +161,42 @@ class Line3 {
      * Gets the distance from the point to the current line
      * @param point target point
      * @param isSegment Whether to treat the current line as a segment
-     * @returns 
      */
     getDistance(point: Vector3, isSegment: boolean = false) {
-        // todo
+        const projection = this.getProjectedPoint(point, isSegment, true);
+        return Utils.Vector3.distance(point, projection);
     }
 
     /**
      * 点是否在直线上
      * 
      * Determines if the point is on the line
+     * 
+     * @param point 目标点
+     * @param tolerance 容差
      */
     isPointOnLine(point: Vector3, tolerance: number = SIX_DECIMAL_TOLERANCE) {
-        // todo
+        return this.getDistance(point) < tolerance;
     }
 
     /**
      * 点是否在线段上
      * 
      * Determine if the point is on the segment
+     * 
+     * @param point 目标点
+     * @param tolerance 容差
      */
     isPointOnSegment(point: Vector3, tolerance: number = SIX_DECIMAL_TOLERANCE) {
-        // todo
+        return this.getDistance(point, true) < tolerance;
     }
 
     /**
      * 和 line 是否平行
      * 
      * Determine whether the current line and line area parallel
+     * 
+     * @param line 目标直线
      */
     isParallel(line: Line3) {
         return this.direction.isParallel(line.direction);
@@ -188,6 +206,8 @@ class Line3 {
      * 和 line 是否正交垂直
      * 
      * Determine whether the current line and line area orthogonal
+     * 
+     * @param line 目标直线
      */
     isOrthogonal(line: Line3) {
         return this.direction.isOrthogonal(line.direction);
@@ -195,8 +215,28 @@ class Line3 {
 
     /**
      * TODO 
-     * 和平面相交的接口
+     * 和平面相交的接口，等待平面的几何结构设计
      */
+
+    /**
+     * 计算点在线上的比例
+     * 
+     * Gets the interpolated number
+     * 
+     * @param point 目标点
+     * @param isSegment 是否将直线作为线段考虑（线段的取值范围只有 [0, 1]）
+     */
+    getAlpha(point: Vector3, isSegment = false) {
+        const alpha = Utils.Vector3.dot3(this.start, this.end, point) / this.lengthSq;
+        if (isSegment) {
+            if (alpha > 1) {
+                return 1;
+            } else if (alpha < 0) {
+                return 0;
+            }
+        }
+        return alpha;
+    }
 
     /**
      * 根据线性比例计算线上的一点
