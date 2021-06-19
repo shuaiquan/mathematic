@@ -3,3 +3,5 @@ export { Vector3, IVec3 } from './unit/vector3';
 export { Matrix3 } from './unit/matrix3';
 export { Matrix4 } from './unit/matrix4';
 export { Line2, LineSide } from './unit/line2';
+export { Line3 } from './unit/line3';
+export { Utils } from './utils';

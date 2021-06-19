@@ -7,7 +7,7 @@ class Line3Util {
      * 
      * Determines the line is parallel to X-Axis
      */
-    isParallelToXAxis(line: Line3) {
+    static isParallelToXAxis(line: Line3) {
         return line.direction.isParallel(Vector3.X_DIRECTION);
     }
 
@@ -16,7 +16,7 @@ class Line3Util {
      * 
      * Determines the line is parallel to Y-Axis
      */
-    isParallelToYAxis(line: Line3) {
+    static isParallelToYAxis(line: Line3) {
         return line.direction.isParallel(Vector3.Y_DIRECTION);
     }
 
@@ -25,7 +25,7 @@ class Line3Util {
      * 
      * Determines the line is parallel to Z-Axis
      */
-    isParallelToZAxis(line: Line3) {
+    static isParallelToZAxis(line: Line3) {
         return line.direction.isParallel(Vector3.Z_DIRECTION);
     }
 }
