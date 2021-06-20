@@ -1,4 +1,3 @@
-import { Matrix3 } from "../matrix3";
 import { Vector3 } from "../vector3";
 
 const Matrix4_SIZE = 16;

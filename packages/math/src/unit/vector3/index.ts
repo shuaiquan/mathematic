@@ -1,9 +1,7 @@
 import { IVec3 } from './interface';
 import { ZERO, ONE, MIN, MAX } from '../../const';
-import { Utils } from '../../utils';
 import { Matrix4 } from '../matrix4';
-
-const NumberUtil = Utils.Number;
+import { NumberUtil } from '../../common/number';
 
 /**
  * 表示三维的一个向量

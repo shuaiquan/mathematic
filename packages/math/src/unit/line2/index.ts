@@ -1,3 +1,4 @@
+import { NumberUtil } from "../../common/number";
 import { SIX_DECIMAL_TOLERANCE, ZERO } from "../../const";
 import { Utils } from "../../utils";
 import { Vector2 } from "../vector2";
@@ -169,7 +170,7 @@ class Line2 {
      */
     getSide(point: Vector2) {
         const product = Utils.Vector2.cross3(this.start, this.end, point);
-        if (Utils.Number.isEqual(product, 0)) {
+        if (NumberUtil.isEqual(product, 0)) {
             return LineSide.On;
         } else if (product > 0) {
             return LineSide.Left;

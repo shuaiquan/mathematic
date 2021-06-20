@@ -1,9 +1,7 @@
 import { IVec2 } from "./interface";
 import { ZERO, ONE, MAX, MIN, TWO_PI, SIX_DECIMAL_TOLERANCE } from '../../const';
 import { Matrix3 } from "../matrix3";
-import { Utils } from "../../utils";
-
-const NumberUtil = Utils.Number;
+import { NumberUtil } from "../../common/number";
 
 /**
  * 表示二维的一个向量
