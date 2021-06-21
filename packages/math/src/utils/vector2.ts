@@ -45,6 +45,19 @@ class Vector2Util {
     static distance(v1: Vector2, v2: Vector2) {
         return v2.sub(v1).length;
     }
+
+    /**
+     * 计算 v1 到 v2 的线性插值
+     * 
+     * Calculate the linear interpolation of v1 to v2
+     * 
+     * @param v1 Vector2
+     * @param v2 Vector2
+     * @param alpha 线性插值的百分比
+     */
+    static interpolate(v1: Vector2, v2: Vector2, alpha: number) {
+        return v1.add(v2.sub(v1).normalize().multiply(alpha));
+    }
 }
 
 export { Vector2Util };
