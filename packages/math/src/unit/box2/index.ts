@@ -25,10 +25,6 @@ class Box2 {
      * @returns A Box2
      */
     static createByPoints(points: Vector2[]) {
-        if (points.length < 3) {
-            throw new Error();
-        }
-
         const { minX, minY, maxX, maxY } = points.reduce((box: PointInfo, point: Vector2) => {
             let { minX, minY, maxX, maxY } = box;
             const { x, y } = point;
@@ -55,7 +51,7 @@ class Box2 {
      * 
      * @param center 中心点
      * @param size 尺寸
-     * @returns 
+     * @returns A Box2
      */
     static createByGeometry(center: Vector2, size: Vector2) {
         const halfSize = size.divide(2);

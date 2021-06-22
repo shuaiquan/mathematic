@@ -1,8 +1,19 @@
 import { ZERO } from "../../const";
+import { Utils } from "../../utils";
 import { Vector3 } from "../vector3";
+import { PointInfo } from "./interface";
 
 /**
- * 表示一饿三维平面中的 AABB 盒子
+ * 表示一个三维平面中的 AABB 盒子
+ * 
+ *    +---------+
+ *   /|        /|
+ *  / |       / |
+ * +---------+  |
+ * |  +------|--+
+ * | /       | /
+ * |/        |/
+ * +---------+
  * 
  * Class representing a bounding box in Three-dimensional coordinate system
  */
@@ -16,7 +27,28 @@ class Box3 {
      * @returns A Box3
      */
     static createByPoints(points: Vector3[]) {
-        // TODO
+        const { minX, minY, minZ, maxX, maxY, maxZ } = points.reduce((box: PointInfo, point: Vector3) => {
+            let { minX, minY, minZ, maxX, maxY, maxZ } = box;
+            const { x, y, z } = point;
+            if (x < minX) {
+                minX = x;
+            } else if (x > maxX) {
+                maxX = x;
+            }
+            if (y < minY) {
+                minY = y;
+            } else if (y > maxY) {
+                maxY = y;
+            }
+            if (z < minZ) {
+                minZ = z;
+            } else if (z > maxZ) {
+                maxZ = z;
+            }
+            return box;
+        }, { minX: Infinity, minY: Infinity, minZ: Infinity, maxX: -Infinity, maxY: -Infinity, maxZ: -Infinity });
+
+        return new Box3(new Vector3(minX, minY, minZ), new Vector3(maxX, maxY, maxZ));
     }
 
     /**
@@ -29,7 +61,10 @@ class Box3 {
      * @returns A Box3
      */
     static createByGeometry(center: Vector3, size: Vector3) {
-        // TODO
+        const halfSize = size.divide(2);
+        const min = center.sub(halfSize);
+        const max = center.add(halfSize);
+        return new Box3(min, max);
     }
 
     /**
@@ -61,7 +96,7 @@ class Box3 {
      * @param min Vector3
      */
     setMin(min: Vector3) {
-
+        this.min = min;
     }
 
     /**
@@ -69,31 +104,58 @@ class Box3 {
      * @param max Vector3
      */
     setMax(max: Vector3) {
-
+        this.max = max;
     }
 
     /**
      * Box3 的 8 个顶点
+     * 
+     * 如果坐标系方向如下：
+     * 
+     *  Y   Z
+     *  |  /
+     *  | /
+     *  |/
+     *  +---------- X
+     * 
+     * 则顶点顺序如下：
+     *  
+     *    7---------6
+     *   /|        /|
+     *  / |       / |
+     * 3---------2  |
+     * |  4------|--5
+     * | /       | /
+     * |/        |/
+     * 0---------1
      */
     get points() {
-        // TODO
-        return new Vector3();
+        const { x: minX, y: minY, z: minZ } = this.min;
+        const { x: maxX, y: maxY, z: maxZ } = this.max;
+        return [
+            new Vector3(minX, minY, minZ),
+            new Vector3(maxX, minY, minZ),
+            new Vector3(maxX, maxY, minZ),
+            new Vector3(minX, maxY, minZ),
+            new Vector3(minX, minY, maxZ),
+            new Vector3(maxX, minY, maxZ),
+            new Vector3(maxX, maxY, maxZ),
+            new Vector3(minX, maxY, maxZ),
+        ];
     }
 
     /**
      * Box3 的尺寸
      */
     get size() {
-        // TODO
-        return new Vector3();
+        return this.max.sub(this.min);
     }
 
     /**
      * Box3 的中心点
      */
     get center() {
-        // TODO
-        return new Vector3()
+        return Utils.Vector3.interpolate(this.min, this.max, 0.5);
     }
 
     /**
