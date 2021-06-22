@@ -1,6 +1,7 @@
 import { ZERO } from "../../const";
 import { Utils } from "../../utils";
 import { Vector2 } from "../vector2";
+import { Vector3 } from "../vector3";
 import { PointInfo } from "./interface";
 
 /**
@@ -69,14 +70,14 @@ class Box2 {
     min: Vector2 = new Vector2(ZERO, ZERO);
 
     /**
-     * Box2 的最小顶点（左下角）
+     * Box2 的最大顶点（右上角）
      */
     max: Vector2 = new Vector2(ZERO, ZERO);
 
     constructor();
     /**
      * @param min Box2 的最小顶点（左下角）
-     * @param max Box2 的最小顶点（左下角）
+     * @param max Box2 的最大顶点（右上角）
      */
     constructor(min: Vector2, max: Vector2);
     constructor() {
@@ -88,7 +89,25 @@ class Box2 {
     }
 
     /**
+     * 设置 Box2 的最小顶点
+     * @param min Vector2
+     */
+    setMin(min: Vector2) {
+        this.min = min;
+    }
+
+    /**
+     * 设置 Box2 的最大顶点
+     * @param max Vector2
+     */
+    setMax(max: Vector2) {
+        this.max = max;
+    }
+
+    /**
      * Box2 的 4 个顶点
+     * 
+     * 当前坐标系为，X向左为正，Y向上为正时，其4个顶点相对位置如下：
      * 
      *  3---------2
      *  |         |
