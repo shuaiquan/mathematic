@@ -4,4 +4,7 @@ export { Matrix3 } from './unit/matrix3';
 export { Matrix4 } from './unit/matrix4';
 export { Line2, LineSide } from './unit/line2';
 export { Line3 } from './unit/line3';
+export { Box2 } from './unit/box2';
+export { Box3 } from './unit/box3';
+
 export { Utils } from './utils';

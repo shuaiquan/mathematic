@@ -56,7 +56,8 @@ class Vector2Util {
      * @param alpha 线性插值的百分比
      */
     static interpolate(v1: Vector2, v2: Vector2, alpha: number) {
-        return v1.add(v2.sub(v1).normalize().multiply(alpha));
+        const direction = v2.sub(v1);
+        return v1.add(direction.normalize().multiply(direction.length * alpha));
     }
 }
 

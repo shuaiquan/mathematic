@@ -29,14 +29,16 @@ class Box2 {
             let { minX, minY, maxX, maxY } = box;
             const { x, y } = point;
             if (x < minX) {
-                minX = x;
-            } else if (x > maxX) {
-                maxX = x;
+                box.minX = x;
+            }
+            if (x > maxX) {
+                box.maxX = x;
             }
             if (y < minY) {
-                minY = y;
-            } else if (y > maxY) {
-                maxY = y;
+                box.minY = y;
+            }
+            if (y > maxY) {
+                box.maxY = y;
             }
             return box;
         }, { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity });

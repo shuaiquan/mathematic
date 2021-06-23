@@ -31,19 +31,22 @@ class Box3 {
             let { minX, minY, minZ, maxX, maxY, maxZ } = box;
             const { x, y, z } = point;
             if (x < minX) {
-                minX = x;
-            } else if (x > maxX) {
-                maxX = x;
+                box.minX = x;
+            }
+            if (x > maxX) {
+                box.maxX = x;
             }
             if (y < minY) {
-                minY = y;
-            } else if (y > maxY) {
-                maxY = y;
+                box.minY = y;
+            }
+            if (y > maxY) {
+                box.maxY = y;
             }
             if (z < minZ) {
-                minZ = z;
-            } else if (z > maxZ) {
-                maxZ = z;
+                box.minZ = z;
+            }
+            if (z > maxZ) {
+                box.maxZ = z;
             }
             return box;
         }, { minX: Infinity, minY: Infinity, minZ: Infinity, maxX: -Infinity, maxY: -Infinity, maxZ: -Infinity });
