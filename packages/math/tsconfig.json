@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
-        "outDir": "./types",
-        "module": "ESNext",
-        "target": "es6",
-        "allowJs": false,
+        "outDir": "./lib",
+        "module": "CommonJS",
+        "target": "ES6",
         "declaration": true,
+        "declarationDir": "./types",
+        "rootDir": "./src",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "lib": [
@@ -13,8 +14,7 @@
         ]
     },
     "include": [
-        "src/**/*",
-        "test/**/*"
+        "src/**/*"
     ],
     "compileOnSave": true
 }

@@ -2,10 +2,12 @@
   "name": "@s7n/math",
   "version": "0.0.1",
   "description": "a math library",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "start": "webpack serve --open",
-    "build": "NODE_ENV=production webpack",
+    "build": "tsc",
+    "prepublish": "tsc",
     "doc": "typedoc --options ./typedoc.json",
     "test": "jest"
   },
@@ -28,21 +30,10 @@
   },
   "homepage": "https://github.com/shuaiquan/mathematic#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/plugin-transform-runtime": "^7.13.15",
-    "@babel/preset-env": "^7.14.0",
     "@types/jest": "^26.0.23",
-    "babel-loader": "^8.2.2",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
-    "ts-loader": "^9.1.1",
     "typedoc": "^0.20.36",
-    "typescript": "~4.2.4",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs2": "^7.14.0"
+    "typescript": "~4.2.4"
   }
 }
