@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>LineSide | Math Library</title>
+	<title>Box3 | Math Library</title>
 	<meta name="description" content="Documentation for Math Library">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">:root {
@@ -2704,43 +2704,67 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-enum">
-			<a href="lineside.html" class="tsd-kind-icon">Line<wbr>Side</a>
+		<li class=" tsd-kind-enum">
+			<a href="../enums/lineside.html" class="tsd-kind-icon">Line<wbr>Side</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="box2.html" class="tsd-kind-icon">Box2</a>
+		</li>
+		<li class="current tsd-kind-class">
+			<a href="box3.html" class="tsd-kind-icon">Box3</a>
 			<ul>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="lineside.html#left" class="tsd-kind-icon">Left</a>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="box3.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="lineside.html#on" class="tsd-kind-icon">On</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="box3.html#max" class="tsd-kind-icon">max</a>
 				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="lineside.html#right" class="tsd-kind-icon">Right</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="box3.html#min" class="tsd-kind-icon">min</a>
+				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+					<a href="box3.html#center" class="tsd-kind-icon">center</a>
+				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+					<a href="box3.html#points" class="tsd-kind-icon">points</a>
+				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+					<a href="box3.html#size" class="tsd-kind-icon">size</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="box3.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="box3.html#setmax" class="tsd-kind-icon">set<wbr>Max</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="box3.html#setmin" class="tsd-kind-icon">set<wbr>Min</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="box3.html#createbygeometry" class="tsd-kind-icon">create<wbr>ByGeometry</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="box3.html#createbypoints" class="tsd-kind-icon">create<wbr>ByPoints</a>
 				</li>
 			</ul>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/box2.html" class="tsd-kind-icon">Box2</a>
+			<a href="line2.html" class="tsd-kind-icon">Line2</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/box3.html" class="tsd-kind-icon">Box3</a>
+			<a href="line3.html" class="tsd-kind-icon">Line3</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/line2.html" class="tsd-kind-icon">Line2</a>
+			<a href="matrix3.html" class="tsd-kind-icon">Matrix3</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/line3.html" class="tsd-kind-icon">Line3</a>
+			<a href="matrix4.html" class="tsd-kind-icon">Matrix4</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/matrix3.html" class="tsd-kind-icon">Matrix3</a>
+			<a href="vector2.html" class="tsd-kind-icon">Vector2</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/matrix4.html" class="tsd-kind-icon">Matrix4</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/vector2.html" class="tsd-kind-icon">Vector2</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/vector3.html" class="tsd-kind-icon">Vector3</a>
+			<a href="vector3.html" class="tsd-kind-icon">Vector3</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="../interfaces/ivec2.html" class="tsd-kind-icon">IVec2</a>
@@ -2755,67 +2779,386 @@ img {
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>表示一个三维平面中的 AABB 盒子</p>
+				</div>
+				<p>   +---------+
+					/|        /|
+					/ |       / |
+					+---------+  |
+					|  +------|--+
+					| /       | /
+					|/        |/
+				+---------+</p>
+				<p>Class representing a bounding box in Three-dimensional coordinate system</p>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="target">Box3</span>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Enumeration members</h3>
+						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="lineside.html#left" class="tsd-kind-icon">Left</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="lineside.html#on" class="tsd-kind-icon">On</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="lineside.html#right" class="tsd-kind-icon">Right</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="box3.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="box3.html#max" class="tsd-kind-icon">max</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="box3.html#min" class="tsd-kind-icon">min</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Accessors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="box3.html#center" class="tsd-kind-icon">center</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="box3.html#points" class="tsd-kind-icon">points</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="box3.html#size" class="tsd-kind-icon">size</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Methods</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="box3.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="box3.html#setmax" class="tsd-kind-icon">set<wbr>Max</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="box3.html#setmin" class="tsd-kind-icon">set<wbr>Min</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="box3.html#createbygeometry" class="tsd-kind-icon">create<wbr>ByGeometry</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="box3.html#createbypoints" class="tsd-kind-icon">create<wbr>ByPoints</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Enumeration members</h2>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="left" class="tsd-anchor"></a>
-				<h3>Left</h3>
-				<div class="tsd-signature tsd-kind-icon">Left<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Box3<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Box3<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a>, max<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L81">unit/box3/index.ts:81</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></h4>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L83">unit/box3/index.ts:83</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>min: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Box3 的最大顶点</p>
+								</div>
+							</li>
+							<li>
+								<h5>max: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Box3 的最大顶点</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="max" class="tsd-anchor"></a>
+				<h3>max</h3>
+				<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/line2/interface.ts#L5">unit/line2/interface.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L81">unit/box3/index.ts:81</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>在线的左侧</p>
+						<p>Box3 的最大顶点</p>
 					</div>
 				</div>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="on" class="tsd-anchor"></a>
-				<h3>On</h3>
-				<div class="tsd-signature tsd-kind-icon">On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 2</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="min" class="tsd-anchor"></a>
+				<h3>min</h3>
+				<div class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">:</span> <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/line2/interface.ts#L13">unit/line2/interface.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L76">unit/box3/index.ts:76</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>在线上</p>
+						<p>Box3 的最小顶点</p>
 					</div>
 				</div>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="right" class="tsd-anchor"></a>
-				<h3>Right</h3>
-				<div class="tsd-signature tsd-kind-icon">Right<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/line2/interface.ts#L9">unit/line2/interface.ts:9</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>在线的右侧</p>
-					</div>
-				</div>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Accessors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<a name="center" class="tsd-anchor"></a>
+				<h3>center</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> center<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L160">unit/box3/index.ts:160</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Box3 的中心点</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<a name="points" class="tsd-anchor"></a>
+				<h3>points</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> points<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L135">unit/box3/index.ts:135</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Box3 的 8 个顶点</p>
+							</div>
+							<p>如果坐标系方向如下：</p>
+							<p> Y   Z
+								|  /
+								| /
+								|/
+							+---------- X</p>
+							<p>则顶点顺序如下：</p>
+							<p>   7---------6
+								/|        /|
+								/ |       / |
+								3---------2  |
+								|  4------|--5
+								| /       | /
+								|/        |/
+							0---------1</p>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<a name="size" class="tsd-anchor"></a>
+				<h3>size</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L153">unit/box3/index.ts:153</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Box3 的尺寸</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="checkvalid" class="tsd-anchor"></a>
+				<h3>check<wbr>Valid</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">check<wbr>Valid<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L167">unit/box3/index.ts:167</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>检查当前 Box3 是否合法</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="setmax" class="tsd-anchor"></a>
+				<h3>set<wbr>Max</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Max<span class="tsd-signature-symbol">(</span>max<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L109">unit/box3/index.ts:109</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>设置 Box3 的最大顶点</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>max: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Vector3</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="setmin" class="tsd-anchor"></a>
+				<h3>set<wbr>Min</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Min<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L101">unit/box3/index.ts:101</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>设置 Box3 的最小顶点</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>min: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Vector3</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="createbygeometry" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> create<wbr>ByGeometry</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">create<wbr>ByGeometry<span class="tsd-signature-symbol">(</span>center<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a>, size<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L66">unit/box3/index.ts:66</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>根据几何信息计算一个 Box3</p>
+							</div>
+							<p>Calculate the Box3 base on geometric information</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>center: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>中心点</p>
+								</div>
+							</li>
+							<li>
+								<h5>size: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>尺寸</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></h4>
+						<p>A Box3</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="createbypoints" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> create<wbr>ByPoints</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">create<wbr>ByPoints<span class="tsd-signature-symbol">(</span>points<span class="tsd-signature-symbol">: </span><a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/shuaiquan/mathematic/blob/b62fb56/packages/math/src/unit/box3/index.ts#L29">unit/box3/index.ts:29</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>计算包围所有点的最小 Box3</p>
+							</div>
+							<p>Calculate the smallest Box3 surrounding all points</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>points: <a href="vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>目标点</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="box3.html" class="tsd-signature-type" data-tsd-kind="Class">Box3</a></h4>
+						<p>A Box3</p>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
