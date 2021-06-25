@@ -1,6 +1,6 @@
 import { Vector3 } from "../vector3";
 
-const Matrix4_SIZE = 16;
+const MATRIX4_SIZE = 16;
 
 /**
  * 表示一个 4 x 4 的矩阵
@@ -159,13 +159,13 @@ class Matrix4 {
      * @returns 当前矩阵 this matrix
      */
     fromArray(elements: number[], offset: number = 0) {
-        for (let i = 0; i < Matrix4_SIZE; i++) {
+        // elements 中不足 16 位的将保持原值
+        const length = elements.length - offset < MATRIX4_SIZE ? elements.length - offset : MATRIX4_SIZE;
+        for (let i = 0; i < length; i++) {
             const result = elements[i + offset];
             if (typeof result === 'number') {
                 this.elements[i] = elements[i + offset];
-                continue;
             }
-            throw new Error();
         }
         return this;
     }
@@ -655,7 +655,7 @@ class Matrix4 {
      */
     equals(m: Matrix4) {
         const mArr = m.toArray();
-        for (let i = 0; i < Matrix4_SIZE; i++) {
+        for (let i = 0; i < MATRIX4_SIZE; i++) {
             if (this.elements[i] !== mArr[i]) {
                 return false;
             }

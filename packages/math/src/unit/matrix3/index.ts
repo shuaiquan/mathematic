@@ -140,13 +140,13 @@ class Matrix3 {
      * @returns 当前矩阵 this matrix
      */
     fromArray(elements: number[], offset: number = 0) {
-        for (let i = 0; i < MATRIX3_SIZE; i++) {
+        // elements 中不足 9 位的将保持原值
+        const length = elements.length - offset < MATRIX3_SIZE ? elements.length - offset : MATRIX3_SIZE;
+        for (let i = 0; i < length; i++) {
             const result = elements[i + offset];
             if (typeof result === 'number') {
                 this.elements[i] = elements[i + offset];
-                continue;
             }
-            throw new Error();
         }
         return this;
     }
