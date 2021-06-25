@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuaiquan/mathematic.git"
+    "url": "git+https://github.com/shuaiquan/mathematic/tree/main/packages/math"
   },
   "keywords": [
     "math",
@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/shuaiquan/mathematic/issues"
   },
-  "homepage": "https://github.com/shuaiquan/mathematic#readme",
+  "homepage": "https://github.com/shuaiquan/mathematic/tree/main/packages/math#readme",
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "jest": "^26.6.3",

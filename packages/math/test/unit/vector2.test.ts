@@ -1,4 +1,4 @@
-import { Vector2 } from "../../src";
+import { Matrix3, Vector2 } from "../../src";
 
 test('Vector2 constructor', () => {
     const v1 = new Vector2();
@@ -154,6 +154,8 @@ test('Vector2 add', () => {
     expect(v5).not.toBe(v1);
     expect(v5.x).toBe(2);
     expect(v5.y).toBe(3);
+
+    expect(v1.add(undefined)).toEqual(v1);
 });
 
 test('Vector2 sub', () => {
@@ -178,6 +180,8 @@ test('Vector2 sub', () => {
     expect(v5).not.toBe(v1);
     expect(v5.x).toBe(9);
     expect(v5.y).toBe(8);
+
+    expect(v1.sub(undefined)).toEqual(v1);
 });
 
 test('Vector2 multiply', () => {
@@ -202,6 +206,8 @@ test('Vector2 multiply', () => {
     expect(v5).not.toBe(v1);
     expect(v5.x).toBe(1);
     expect(v5.y).toBe(4);
+
+    expect(v1.multiply(undefined)).toEqual(v1);
 });
 
 test('Vector2 divide', () => {
@@ -226,6 +232,18 @@ test('Vector2 divide', () => {
     expect(v5).not.toBe(v1);
     expect(v5.x).toBe(5);
     expect(v5.y).toBe(2);
+
+    expect(v1.divide(undefined)).toEqual(v1);
+});
+
+test('appMatrix3', () => {
+    const v = new Vector2(1, 2);
+    const m = new Matrix3(
+        1, 2, 3,
+        4, 5, 6,
+        7, 8, 9,
+    );
+    expect(v.applyMatrix3(m)).toEqual(new Vector2(8, 20));
 });
 
 test('Vector2 inverse', () => {

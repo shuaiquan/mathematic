@@ -1,4 +1,60 @@
-import { Matrix4, Vector3 } from "../../src"
+import { Matrix4, Vector3 } from "../../src";
+
+test('multiplyMatrices', () => {
+    const m1 = new Matrix4(
+        1, 2, 1, 2,
+        2, 1, 2, 1,
+        1, 2, 1, 2,
+        2, 1, 2, 1
+    );
+    const m2 = new Matrix4(
+        1, 1, 1, 1,
+        2, 2, 2, 2,
+        1, 1, 1, 1,
+        2, 2, 2, 2
+    );
+    const m3 = new Matrix4(
+        1, 1, 2, 2,
+        2, 2, 1, 1,
+        1, 1, 2, 2,
+        2, 2, 1, 1
+    );
+
+    expect(Matrix4.multiplyMatrices([m1, m2, m3])).toEqual(new Matrix4(
+        60, 60, 60, 60,
+        48, 48, 48, 48,
+        60, 60, 60, 60,
+        48, 48, 48, 48
+    ));
+});
+
+test('multiplyMatrices', () => {
+    const m3 = new Matrix4(
+        1, 2, 1, 2,
+        2, 1, 2, 1,
+        1, 2, 1, 2,
+        2, 1, 2, 1
+    );
+    const m2 = new Matrix4(
+        1, 1, 1, 1,
+        2, 2, 2, 2,
+        1, 1, 1, 1,
+        2, 2, 2, 2
+    );
+    const m1 = new Matrix4(
+        1, 1, 2, 2,
+        2, 2, 1, 1,
+        1, 1, 2, 2,
+        2, 2, 1, 1
+    );
+
+    expect(Matrix4.preMultiplyMatrices([m1, m2, m3])).toEqual(new Matrix4(
+        60, 60, 60, 60,
+        48, 48, 48, 48,
+        60, 60, 60, 60,
+        48, 48, 48, 48
+    ));
+});
 
 test('constructor', () => {
     const m1 = new Matrix4();
@@ -275,6 +331,13 @@ test('invert', () => {
     expect(ele[13]).toBeCloseTo(2 / 3, 6);
     expect(ele[14]).toBeCloseTo(-1 / 12, 6);
     expect(ele[15]).toBeCloseTo(-1 / 2, 6);
+
+    expect(() => (new Matrix4(
+        1, 1, 2, 1,
+        0, 0, 0, 0,
+        0, 1, 1, 0,
+        0, 0, 0, 0
+    )).invert()).toThrowError(new Error("The matrix determinant is zero"));
 });
 
 test('determinant', () => {
@@ -338,5 +401,12 @@ test('equals', () => {
         1, 2, 2, 2,
         2, 2, 2, 1
     );
+    const m3 = new Matrix4(
+        1, 2, 1, 2,
+        2, 1, 2, 2,
+        1, 2, 2, 2,
+        2, 2, 2, 1
+    );
     expect(m1.equals(m2)).toEqual(true);
+    expect(m1.equals(m3)).toEqual(false);
 });

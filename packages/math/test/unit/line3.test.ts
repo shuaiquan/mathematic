@@ -1,5 +1,4 @@
 import { Vector3 } from "../../src";
-import { PI } from "../../src/const";
 import { Line3 } from "../../src/unit/Line3";
 
 test('constructor', () => {
@@ -93,10 +92,15 @@ test('isPointOn Line/Segment', () => {
 
 test('getProjectedPoint', () => {
     const l1 = new Line3(new Vector3(-10, 0, 10), new Vector3(10, 0, 10));
-    const point = new Vector3(-20, 10);
+    const point = new Vector3(-20, 10, 0);
+    const point2 = new Vector3(20, 10, 0);
     expect(l1.getProjectedPoint(point)).toEqual(new Vector3(-20, 0, 10));
     expect(l1.getProjectedPoint(point, true)).toEqual(undefined);
     expect(l1.getProjectedPoint(point, true, true)).toEqual(new Vector3(-10, 0, 10));
+    expect(l1.getProjectedPoint(point2)).toEqual(new Vector3(20, 0, 10));
+    expect(l1.getProjectedPoint(point2, true)).toEqual(undefined);
+    expect(l1.getProjectedPoint(point2, true, true)).toEqual(new Vector3(10, 0, 10));
+    expect(l1.getProjectedPoint(new Vector3(0, 0, 0), true)).toEqual(new Vector3(0, 0, 10));
 });
 
 test('getDistance', () => {
@@ -124,7 +128,10 @@ test('getAlpha', () => {
     const l1 = new Line3(new Vector3(-10, 0, 0), new Vector3(10, 0, 0));
     expect(l1.getAlpha(new Vector3(0, 0, 0))).toEqual(0.5);
     expect(l1.getAlpha(new Vector3(-20, 0, 0))).toEqual(-0.5);
+    expect(l1.getAlpha(new Vector3(20, 0, 0))).toEqual(1.5);
+    expect(l1.getAlpha(new Vector3(0, 0, 0), true)).toEqual(0.5);
     expect(l1.getAlpha(new Vector3(-20, 0, 0), true)).toEqual(0);
+    expect(l1.getAlpha(new Vector3(20, 0, 0), true)).toEqual(1);
 });
 
 test('interpolate', () => {

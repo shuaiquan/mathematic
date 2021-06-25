@@ -118,9 +118,13 @@ test('isPointOn Line/Segment', () => {
 test('getProjectedPoint', () => {
     const l1 = new Line2(new Vector2(-10, 0), new Vector2(10, 0));
     const point = new Vector2(-20, 10);
+    const point2 = new Vector2(20, 5);
     expect(l1.getProjectedPoint(point)).toEqual(new Vector2(-20, 0));
     expect(l1.getProjectedPoint(point, true)).toEqual(undefined);
     expect(l1.getProjectedPoint(point, true, true)).toEqual(new Vector2(-10, 0));
+    expect(l1.getProjectedPoint(point2)).toEqual(new Vector2(20, 0));
+    expect(l1.getProjectedPoint(point2, true)).toEqual(undefined);
+    expect(l1.getProjectedPoint(point2, true, true)).toEqual(new Vector2(10, 0));
 });
 
 test('getDistance', () => {
@@ -155,7 +159,10 @@ test('getAlpha', () => {
     const l1 = new Line2(new Vector2(-10, 0), new Vector2(10, 0));
     expect(l1.getAlpha(new Vector2(0, 0))).toEqual(0.5);
     expect(l1.getAlpha(new Vector2(-20, 0))).toEqual(-0.5);
+    expect(l1.getAlpha(new Vector2(20, 0))).toEqual(1.5);
     expect(l1.getAlpha(new Vector2(-20, 0), true)).toEqual(0);
+    expect(l1.getAlpha(new Vector2(0, 0), true)).toEqual(0.5);
+    expect(l1.getAlpha(new Vector2(20, 0), true)).toEqual(1);
 });
 
 test('interpolate', () => {

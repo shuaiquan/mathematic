@@ -1,4 +1,52 @@
-import { Matrix3, Vector2 } from "../../src"
+import { Matrix3, Vector2 } from "../../src";
+
+test('multiplyMatrices', () => {
+    const m1 = new Matrix3(
+        1, 2, 1,
+        2, 1, 2,
+        1, 2, 1
+    );
+    const m2 = new Matrix3(
+        1, 1, 1,
+        2, 2, 2,
+        1, 1, 1
+    );
+    const m3 = new Matrix3(
+        1, 2, 2,
+        2, 1, 1,
+        1, 1, 2
+    );
+
+    expect(Matrix3.multiplyMatrices([m1, m2, m3])).toEqual(new Matrix3(
+        24, 24, 30,
+        24, 24, 30,
+        24, 24, 30
+    ));
+});
+
+test('preMultiplyMatrices', () => {
+    const m1 = new Matrix3(
+        1, 2, 1,
+        2, 1, 2,
+        1, 2, 1
+    );
+    const m2 = new Matrix3(
+        1, 1, 1,
+        2, 2, 2,
+        1, 1, 1
+    );
+    const m3 = new Matrix3(
+        1, 2, 2,
+        2, 1, 1,
+        1, 1, 2
+    );
+
+    expect(Matrix3.preMultiplyMatrices([m1, m2, m3])).toEqual(new Matrix3(
+        28, 35, 28,
+        20, 25, 20,
+        20, 25, 20,
+    ));
+});
 
 test('constructor + equals', () => {
     const m1 = new Matrix3();
@@ -216,6 +264,12 @@ test('invert', () => {
     expect(ele[6]).toBeCloseTo(5 / 6, 6);
     expect(ele[7]).toBeCloseTo(-1 / 3, 6);
     expect(ele[8]).toBeCloseTo(1 / 6, 6);
+
+    expect(() => (new Matrix3(
+        1, 2, 1,
+        0, 1, 0,
+        0, 0, 0
+    )).invert()).toThrow(new Error("The matrix determinant is zero"));
 });
 
 test('determinant', () => {
@@ -287,5 +341,11 @@ test('equals', () => {
         2, 1, 2,
         1, 1, 2
     );
+    const m3 = new Matrix3(
+        1, 2, 1,
+        2, 1, 1,
+        1, 1, 2
+    );
     expect(m1.equals(m2)).toEqual(true);
+    expect(m1.equals(m3)).toEqual(false);
 });

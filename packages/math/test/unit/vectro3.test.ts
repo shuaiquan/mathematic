@@ -1,4 +1,4 @@
-import { Vector3 } from "../../src";
+import { Matrix4, Vector3 } from "../../src";
 
 test('Vector3 constructor', () => {
     const v1 = new Vector3();
@@ -126,6 +126,8 @@ test('Vector3 add', () => {
     expect(v3.x).toBe(2);
     expect(v3.y).toBe(3);
     expect(v3.z).toBe(4);
+
+    expect(v1.add(undefined)).toEqual(v1);
 });
 
 test('Vector3 sub', () => {
@@ -142,6 +144,8 @@ test('Vector3 sub', () => {
     expect(v3.x).toBe(9);
     expect(v3.y).toBe(8);
     expect(v3.z).toBe(7);
+
+    expect(v1.sub(undefined)).toEqual(v1);
 });
 
 test('Vector3 multiply', () => {
@@ -158,6 +162,8 @@ test('Vector3 multiply', () => {
     expect(v3.x).toBe(1);
     expect(v3.y).toBe(4);
     expect(v3.z).toBe(9);
+
+    expect(v1.multiply(undefined)).toEqual(v1);
 });
 
 test('Vector3 divide', () => {
@@ -174,6 +180,19 @@ test('Vector3 divide', () => {
     expect(v3.x).toBe(4);
     expect(v3.y).toBe(2);
     expect(v3.z).toBe(1);
+
+    expect(v1.divide(undefined)).toEqual(v1);
+});
+
+test('appMatrix4', () => {
+    const v = new Vector3(1, 2, 3);
+    const m = new Matrix4(
+        1, 2, 3, 4,
+        5, 6, 7, 8,
+        9, 10, 11, 12,
+        13, 14, 15, 16
+    );
+    expect(v.applyMatrix4(m)).toEqual(new Vector3(18, 46, 74));
 });
 
 test('Vector3 inverse', () => {
