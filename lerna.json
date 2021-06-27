@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/*"
+    "packages/math"
   ],
   "version": "0.0.0"
 }
