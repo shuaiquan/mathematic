@@ -325,19 +325,6 @@ class Vector3 {
     }
 
     /**
-     * Linearly interpolates between this vector and v
-     * @param v v vector to interpolate towards.
-     * @param alpha alpha interpolation factor in the closed interval [0, 1].
-     * @returns A new Vector3
-     */
-    lerp(v: Vector3, alpha: number = 1) {
-        const x = this.x + (v.x - this.x) * alpha;
-        const y = this.y + (v.y - this.y) * alpha;
-        const z = this.z + (v.z - this.z) * alpha;
-        return new Vector3(x, y, z);
-    }
-
-    /**
      * 点乘
      * 
      * Computes dot product of this vector and v

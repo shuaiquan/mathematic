@@ -309,18 +309,6 @@ class Vector2 {
     }
 
     /**
-     * Linearly interpolates between the current vector and v
-     * @param v v vector to interpolate towards.
-     * @param alpha alpha interpolation factor in the closed interval [0, 1].
-     * @returns A new Vector2
-     */
-    lerp(v: Vector2, alpha: number = 1) {
-        const x = this.x + (v.x - this.x) * alpha;
-        const y = this.y + (v.y - this.y) * alpha;
-        return new Vector2(x, y);
-    }
-
-    /**
      * 点乘
      * 
      * Computes dot product of the current vector and v

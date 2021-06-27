@@ -2,6 +2,8 @@ import { Vector3 } from "../unit/vector3";
 
 class Vector3Util {
     /**
+     * 计算向量(v2 -> v1) 和向量(v3 -> v1) 的叉积
+     * 
      * Computes cross product of (v2 -> v1) and (v3 -> v1)
      */
     static cross3(v1: Vector3, v2: Vector3, v3: Vector3) {
@@ -11,6 +13,8 @@ class Vector3Util {
     }
 
     /**
+     * 计算向量(v2 -> v1) 和向量(v3 -> v1) 的点积
+     * 
      * Computes dot product of (v2 -> v1) and (v3 -> v1)
      */
     static dot3(v1: Vector3, v2: Vector3, v3: Vector3) {
@@ -20,6 +24,8 @@ class Vector3Util {
     }
 
     /**
+     * 获取两点间的距离
+     * 
      * Computed the distance from v1 to v2
      */
     static distance(v1: Vector3, v2: Vector3) {

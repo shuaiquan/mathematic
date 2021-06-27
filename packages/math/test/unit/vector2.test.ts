@@ -284,13 +284,6 @@ test('Vector2 normalize', () => {
     expect(v8.normalize()).toEqual(new Vector2(1 / Math.sqrt(2), -1 / Math.sqrt(2)));
 });
 
-test('Vector2 lerp', () => {
-    const v = new Vector2(0, 0);
-    expect(v.lerp(new Vector2(100, 100), 0.3)).toEqual(new Vector2(30, 30));
-    expect(v.lerp(new Vector2(100, 100), -0.3)).toEqual(new Vector2(-30, -30));
-    expect(v.lerp(new Vector2(100, 100), 1.2)).toEqual(new Vector2(120, 120));
-});
-
 test('Vector2 dot', () => {
     expect((new Vector2(1, 0)).dot(new Vector2(0, 1))).toBe(0);
     expect((new Vector2(5, 10)).dot(new Vector2(3, 2))).toBe(35);

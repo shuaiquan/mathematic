@@ -207,13 +207,6 @@ test('Vector3 normalize', () => {
     expect(v2.normalize()).toEqual(new Vector3(-2 / 3, 1 / 3, -2 / 3));
 });
 
-test('Vector3 lerp', () => {
-    const v = new Vector3(0, 0, 0);
-    expect(v.lerp(new Vector3(100, 100, 100), 0.3)).toEqual(new Vector3(30, 30, 30));
-    expect(v.lerp(new Vector3(100, 100, 100), -0.3)).toEqual(new Vector3(-30, -30, -30));
-    expect(v.lerp(new Vector3(100, 100, 100), 1.2)).toEqual(new Vector3(120, 120, 120));
-});
-
 test('Vector3 dot', () => {
     expect((new Vector3(1, 0, 1)).dot(new Vector3(0, 1, 0))).toBe(0);
     expect((new Vector3(1, 1, 0)).dot(new Vector3(2, 0, 1))).toBe(2);

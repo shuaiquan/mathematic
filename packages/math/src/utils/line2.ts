@@ -3,6 +3,8 @@ import { Vector2 } from "../unit/vector2";
 
 class Line2Util {
     /**
+     * 两条直线是否相交
+     * 
      * Determine whether lines L1 and L2 intersect (判断：直线 l1 和直线 l2 是否相交)
      * @param line1 straight line1
      * @param line2 straight line2
@@ -13,6 +15,8 @@ class Line2Util {
     }
 
     /**
+     * 直线 line 和线段 segment 是否相交
+     * 
      * Determine whether the straight line and the line segment intersect (判断：直线 line 和线段 segment 是否相交)
      * @param line straight line
      * @param segment segment line
@@ -29,6 +33,8 @@ class Line2Util {
     }
 
     /**
+     * 两条线段是否相交
+     * 
      * Determine whether the line segments intersect (判断：线段 segment1 和线段 segment2 是否相交)
      * @param segment1 line segment1
      * @param segment2 line segment2
@@ -49,6 +55,8 @@ class Line2Util {
     }
 
     /**
+     * 求两条直线的交点
+     * 
      * Calculate the intersection of line1 and line2
      * @param line1 straight line
      * @param line2 straight line
@@ -95,6 +103,8 @@ class Line2Util {
     }
 
     /**
+     * 求支直线 line 和线段 segment 的交点
+     * 
      * Calculate the intersection of line and segment
      * @param line straight line
      * @param segment segment line
@@ -109,6 +119,8 @@ class Line2Util {
     }
 
     /**
+     * 求两条线段的交点
+     * 
      * Calculate the intersection of segment1 and segment2
      * @param segment1 segment line
      * @param segment2 segment line

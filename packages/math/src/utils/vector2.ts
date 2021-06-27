@@ -2,7 +2,9 @@ import { Vector2 } from "../unit/vector2";
 
 class Vector2Util {
     /**
-     * Get the left vector2 perpendicular to the vec (获取垂直于目标向量的左向量)
+     * 获取垂直于目标向量的左向量
+     * 
+     * Get the left vector2 perpendicular to the vec
      * @param vec the target vector2
      */
     static getLeftDirection(vec: Vector2) {
@@ -12,7 +14,9 @@ class Vector2Util {
     }
 
     /**
-     * Get the right vector2 perpendicular to the vec (获取垂直于目标向量的右向量)
+     * 获取垂直于目标向量的右向量
+     * 
+     * Get the right vector2 perpendicular to the vec
      * @param vec the target vector2
      */
     static getRightDirection(vec: Vector2) {
@@ -22,6 +26,8 @@ class Vector2Util {
     }
 
     /**
+     * 计算向量(v2 -> v1) 和向量(v3 -> v1) 的叉积
+     * 
      * Computes cross product of (v2 -> v1) and (v3 -> v1)
      */
     static cross3(v1: Vector2, v2: Vector2, v3: Vector2) {
@@ -31,6 +37,8 @@ class Vector2Util {
     }
 
     /**
+     * 计算向量(v2 -> v1) 和向量(v3 -> v1) 的点积
+     * 
      * Computes dot product of (v2 -> v1) and (v3 -> v1)
      */
     static dot3(v1: Vector2, v2: Vector2, v3: Vector2) {
@@ -40,6 +48,8 @@ class Vector2Util {
     }
 
     /**
+     * 获取两点间的距离
+     * 
      * Computed the distance from v1 to v2
      */
     static distance(v1: Vector2, v2: Vector2) {
