@@ -45,6 +45,10 @@ class Circle {
         return this;
     }
 
+    clone() {
+        // todo
+    }
+
     /**
      * 平移圆
      * @param v 平移向量
