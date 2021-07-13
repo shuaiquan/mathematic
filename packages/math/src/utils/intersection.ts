@@ -1,4 +1,5 @@
 import { SIX_DECIMAL_TOLERANCE } from "../const";
+import { Arc } from "../unit/arc";
 import { Circle } from "../unit/circle";
 import { Line2 } from "../unit/line2";
 import { Vector2Util } from "./vector2";
@@ -54,6 +55,7 @@ class Intersection {
 
     /**
      * 判断圆和圆是否相交
+     * 
      * @param c1 圆1
      * @param c2 圆2
      * @param includeTangent 是否包含相切（默认：true）
@@ -62,6 +64,22 @@ class Intersection {
     static isCircleIntersectCircle(c1: Circle, c2: Circle, includeTangent: boolean = true, tolerance: number = SIX_DECIMAL_TOLERANCE) {
         const distance = Vector2Util.distance(c1.center, c2.center);
         return includeTangent ? distance <= c1.radius + c2.radius + tolerance : distance < c1.radius + c2.radius + tolerance;
+    }
+
+    static isLineIntersectArc(line: Line2, arc: Arc, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        // todo
+    }
+
+    static isLineIntersectArcWithoutBorder(line: Line2, arc: Arc, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        // todo
+    }
+
+    static isSegmentIntersectArc(segment: Line2, arc: Arc, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        // todo
+    }
+
+    static isSegmentIntersectArcWidthoutBorder(segment: Line2, arc: Arc, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        // todo
     }
 }
 

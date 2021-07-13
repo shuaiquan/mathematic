@@ -7,6 +7,17 @@ import { Vector2 } from "../vector2";
  */
 class Circle {
     /**
+     * 通过不重复的三个点构造一个圆
+     * 
+     * @param p1 点1
+     * @param p2 点2
+     * @param p3 点3
+     */
+    static createByThreePoint(p1: Vector2, p2: Vector2, p3: Vector2) {
+        // todo
+    }
+
+    /**
      * 圆心
      */
     center: Vector2 = new Vector2(ZERO, ZERO);
@@ -20,9 +31,11 @@ class Circle {
      * @param center 圆心
      * @param radius 半径
      */
-    constructor(center: Vector2, radius: number) {
-        this.center = center;
-        this.radius = radius;
+    constructor(center?: Vector2, radius?: number) {
+        this.center = center || this.center;
+        if (radius !== undefined) {
+            this.radius = radius;
+        }
     }
 
     /**
