@@ -2,6 +2,11 @@
 
 在当下前端(Web)图形化，可视化应用在不断涌现的背景下，开发者在这样的项目中不可避免的需要使用很多基本的几何运算，例如向量运算，矩阵运算等。甚至如果开发者可以抽象数学模型，那么无论是什么样的场景，相信 `@s7n/math` 都可以帮助到你。
 
+[![npm version](https://img.shields.io/npm/v/@s7n/math.svg?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
+[![npm downloads](https://img.shields.io/npm/dm/@s7n/math.svg?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
+[![install size](https://img.shields.io/bundlephobia/minzip/@s7n/math?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
+
+
 这是一个使用 TS 编写的基础数学库，其内容大致包含：
 
 | Class | 说明 |

@@ -5,9 +5,9 @@
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "tsc",
-    "prepublish": "tsc",
+    "build:test": "tsc --noEmit",
+    "build": "rm -rf lib && rm -rf types && tsc",
+    "prepublish": "npm run build",
     "doc": "typedoc --options ./typedoc.json",
     "test": "jest"
   },
