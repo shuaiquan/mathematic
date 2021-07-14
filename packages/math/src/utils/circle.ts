@@ -1,4 +1,4 @@
-import { PI, TWO_PI } from "../const";
+import { TWO_PI } from "../const";
 import { Matrix3 } from "../unit/matrix3";
 import { Vector2 } from "../unit/vector2";
 
@@ -22,7 +22,7 @@ class CircleUtil {
      * 
      * @param center 圆心
      * @param radius 半径
-     * @param radian 目标角度 （）
+     * @param radian 目标角度 （弧度制 radian）
      * @param isClockwise 圆周是否顺时针（默认：false）
      * 
      * @returns 目标点
