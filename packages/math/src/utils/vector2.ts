@@ -57,6 +57,30 @@ class Vector2Util {
     }
 
     /**
+     * 计算 v1 -> v2 的方向向量
+     * 
+     * Computed the direction from v1 to v2
+     * 
+     * @param v1 Vector2
+     * @param v2 Vector2
+     */
+    static direction(v1: Vector2, v2: Vector2) {
+        return v2.sub(v1).normalize();
+    }
+
+    /**
+     * 计算（v1, v2）的中点
+     * 
+     * Computed the center of v1 and v2
+     * 
+     * @param v1 Vector2
+     * @param v2 Vector2
+     */
+    static center(v1: Vector2, v2: Vector2) {
+        return this.interpolate(v1, v2, 0.5);
+    }
+
+    /**
      * 计算 v1 到 v2 的线性插值
      * 
      * Calculate the linear interpolation of v1 to v2

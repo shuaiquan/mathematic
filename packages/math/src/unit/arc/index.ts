@@ -1,5 +1,6 @@
 import { SIX_DECIMAL_TOLERANCE, TWO_PI, ZERO } from "../../const";
 import { Utils } from "../../utils";
+import { Line2 } from "../line2";
 import { Vector2 } from "../vector2";
 
 const CLOCKWISE = true;
@@ -19,8 +20,16 @@ class Arc {
      * @param arcPoint 弧上任意点（不为 startPoint/endPoint）
      * @param endPoint 终点
      */
-    static createByThreePoint(startPoint: Vector2, arcPoint: Vector2, endPoint: Vector2) {
-        // todo 等一下求直线的垂线接口
+    static createByThreePoint(startPoint: Vector2, arcPoint: Vector2, endPoint: Vector2, isClockwise: boolean = CLOCKWISE) {
+        const l1 = new Line2(startPoint, arcPoint);
+        const l2 = new Line2(arcPoint, endPoint);
+        const diameter1 = Utils.Line2.calcPerpendicularThroughPoint(l1, l1.center);
+        const diameter2 = Utils.Line2.calcPerpendicularThroughPoint(l2, l2.center);
+        const center = Utils.Line2.lineIntersectLine(diameter1, diameter2);
+        if (!center) {
+            throw new Error('The points can not from an arc');
+        }
+        return Arc.createByBoundaryPoint(center, startPoint, endPoint, isClockwise);
     }
 
     /**

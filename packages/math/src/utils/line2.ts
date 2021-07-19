@@ -133,6 +133,19 @@ class Line2Util {
             }
         }
     }
+
+    /**
+     * 计算通过 point 的 line 的垂线
+     * 
+     * Calculate the perpendicular to the line passing through the point
+     * 
+     * @param line 目标直线
+     * @param point 目标点
+     */
+    static calcPerpendicularThroughPoint(line: Line2, point: Vector2) {
+        const verticalDir = line.getSide(point) === LineSide.Right ? line.rightDirection : line.leftDirection;
+        return new Line2(point, point.add(verticalDir.multiply(10)));
+    }
 }
 
 export { Line2Util };
