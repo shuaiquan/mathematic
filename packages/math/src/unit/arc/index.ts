@@ -183,7 +183,7 @@ class Arc {
      * @param point 
      */
     isPointInsideArc(point: Vector2, includeBorder: boolean = false, distanceTol: number = SIX_DECIMAL_TOLERANCE, angleTol: number = SIX_DECIMAL_TOLERANCE) {
-        const { center, radius, startAngle, endAngle, isClockwise } = this;
+        const { center, radius, isClockwise } = this;
         const distance = Utils.Vector2.distance(point, center);
         const isInRange = includeBorder ? distance <= radius + distanceTol : distance < radius + distanceTol;
         if (isInRange) {

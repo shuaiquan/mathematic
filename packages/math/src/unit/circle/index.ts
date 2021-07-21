@@ -58,8 +58,11 @@ class Circle {
         return this;
     }
 
+    /**
+     * 复制当前 Circle
+     */
     clone() {
-        // todo
+        return new Circle(this.center.clone(), this.radius);
     }
 
     /**
@@ -88,7 +91,7 @@ class Circle {
      */
     isPointInsideCircle(point: Vector2, includeBorder: boolean = false, tolerance: number = SIX_DECIMAL_TOLERANCE) {
         const distance = Utils.Vector2.distance(point, this.center);
-        return includeBorder ? distance <= this.radius + tolerance : distance < this.radius + tolerance;
+        return includeBorder ? distance <= this.radius + tolerance : distance < this.radius;
     }
 
     /**
