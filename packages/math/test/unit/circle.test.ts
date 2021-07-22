@@ -66,4 +66,16 @@ describe('Test for Circle', () => {
             NumberUtil.isEqual(Utils.Vector2.distance(p, center), radius);
         });
     });
+
+    test('createByThreePoint', () => {
+        const p1 = new Vector2(-10, 0);
+        const p2 = new Vector2(0, 10);
+        const p3 = new Vector2(10, 0);
+
+        const c = Circle.createByThreePoint(p1, p2, p3);
+        const { x, y } = c.center;  // 有负号的 0
+        expect(x).toBeCloseTo(0, 6);
+        expect(y).toBeCloseTo(0, 6);
+        expect(c.radius).toEqual(10);
+    })
 });

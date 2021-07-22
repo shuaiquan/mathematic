@@ -1,5 +1,6 @@
 import { SIX_DECIMAL_TOLERANCE, TWO_PI, ZERO } from "../../const";
 import { Utils } from "../../utils";
+import { Line2 } from "../line2";
 import { Vector2 } from "../vector2";
 
 /**
@@ -14,7 +15,16 @@ class Circle {
      * @param p3 点3
      */
     static createByThreePoint(p1: Vector2, p2: Vector2, p3: Vector2) {
-        // todo
+        const l1 = new Line2(p1, p2);
+        const l2 = new Line2(p2, p3);
+        const diameter1 = Utils.Line2.calcPerpendicularThroughPoint(l1, l1.center);
+        const diameter2 = Utils.Line2.calcPerpendicularThroughPoint(l2, l2.center);
+        const center = Utils.Line2.lineIntersectLine(diameter1, diameter2);
+        if (!center) {
+            throw new Error('The points can not from a circle');
+        }
+        const radius = Utils.Vector2.distance(center, p1);
+        return new Circle(center, radius);
     }
 
     /**
