@@ -3,7 +3,7 @@ import { Utils } from "../../utils";
 import { Line2 } from "../line2";
 import { Vector2 } from "../vector2";
 
-const CLOCKWISE = true;
+const CLOCKWISE = false;
 
 // TODO 整体考虑用 radian 替换 angle
 
@@ -80,9 +80,9 @@ class Arc {
     endAngle: number = ZERO;
 
     /**
-     * 是否逆时针（默认：true）
+     * 是否顺时针（默认：false）
      * 
-     * @default true
+     * @default false
      */
     isClockwise: boolean = CLOCKWISE;
 
@@ -101,6 +101,8 @@ class Arc {
         this.isClockwise = isClockwise;
     }
 
+    // TODO 增加 center radius 等 set 接口
+
     /**
      * 复制当前圆弧
      * 
@@ -110,7 +112,7 @@ class Arc {
      */
     clone() {
         const { center, radius, startAngle, endAngle, isClockwise } = this;
-        return new Arc(center, radius, startAngle, endAngle, isClockwise);
+        return new Arc(center.clone(), radius, startAngle, endAngle, isClockwise);
     }
 
     /**
@@ -139,8 +141,9 @@ class Arc {
      * The radian of the arc
      */
     get angle() {
+        // todo 这里似乎并不能保证 diff 在 0 ～ 2PI 内
         const diffRadian = this.endAngle - this.startAngle;
-        return diffRadian < 0 ? TWO_PI - diffRadian : diffRadian;
+        return diffRadian < 0 ? TWO_PI + diffRadian : diffRadian;
     }
 
     /**
@@ -185,7 +188,7 @@ class Arc {
     isPointInsideArc(point: Vector2, includeBorder: boolean = false, distanceTol: number = SIX_DECIMAL_TOLERANCE, angleTol: number = SIX_DECIMAL_TOLERANCE) {
         const { center, radius, isClockwise } = this;
         const distance = Utils.Vector2.distance(point, center);
-        const isInRange = includeBorder ? distance <= radius + distanceTol : distance < radius + distanceTol;
+        const isInRange = includeBorder ? distance <= radius + distanceTol : distance < radius;
         if (isInRange) {
             const angle = Utils.Circle.getAngleByPoint(center, point, isClockwise);
             return this.isAngleInsideArc(angle);
