@@ -18,10 +18,25 @@ describe('Test for Arc', () => {
     test('constructor', () => {
         expect(arc.center).toEqual(center);
         expect(arc.radius).toEqual(radius);
-        expect(arc.startAngle).toEqual(startAngle);
-        expect(arc.endAngle).toEqual(endAngle);
+        expect(arc.startRadian).toEqual(startAngle);
+        expect(arc.endRadian).toEqual(endAngle);
         expect(arc.isClockwise).toEqual(isClockwise);
     });
+
+    test('set', () => {
+        const a = arc.clone();
+        a.setCenter(new Vector2(10, 10));
+        a.setRadius(5);
+        a.setStartRadian(PI / 2);
+        a.setEndRadian(PI);
+        a.setClockwise(true);
+        expect(a.center.x).toEqual(10);
+        expect(a.center.y).toEqual(10);
+        expect(a.radius).toEqual(5);
+        expect(a.startRadian).toEqual(PI / 2);
+        expect(a.endRadian).toEqual(PI);
+        expect(a.isClockwise).toEqual(true);
+    })
 
     test('midRadian', () => {
         expect(arc.midRadian).toBeCloseTo(PI / 2);
@@ -40,11 +55,11 @@ describe('Test for Arc', () => {
         expect(a2.midPoint.y).toBeCloseTo(-radius, 6);
     });
 
-    test('angle', () => {
-        expect(arc.angle).toBeCloseTo(PI / 2);
+    test('radian', () => {
+        expect(arc.radian).toBeCloseTo(PI / 2);
 
         const a2 = new Arc(center, radius, endAngle, startAngle, false);
-        expect(a2.angle).toBeCloseTo(PI / 2 * 3, 6);
+        expect(a2.radian).toBeCloseTo(PI / 2 * 3, 6);
     });
 
     test('startPoint', () => {
@@ -64,9 +79,21 @@ describe('Test for Arc', () => {
         expect(a).not.toBe(arc);
         expect(a.center).toEqual(center);
         expect(a.radius).toEqual(radius);
-        expect(a.startAngle).toEqual(startAngle);
-        expect(a.endAngle).toEqual(endAngle);
+        expect(a.startRadian).toEqual(startAngle);
+        expect(a.endRadian).toEqual(endAngle);
         expect(a.isClockwise).toEqual(isClockwise);
+    });
+
+    test('translate', () => {
+        const a = arc.translate(new Vector2(10, 10));
+        expect(a.center.x).toEqual(10);
+        expect(a.center.y).toEqual(10);
+    });
+
+    test('rotate', () => {
+        const a = arc.rotate(PI / 4);
+        expect(a.startRadian).toEqual(PI / 2);
+        expect(a.endRadian).toEqual(PI);
     });
 
     test('isPointOnArc', () => {
@@ -108,8 +135,8 @@ describe('Test for Arc', () => {
         expect(a.center.x).toBeCloseTo(center.x, 6);
         expect(a.center.y).toBeCloseTo(center.y, 6);
         expect(a.radius).toBeCloseTo(radius, 6);
-        expect(a.startAngle).toBeCloseTo(startAngle, 6);
-        expect(a.endAngle).toBeCloseTo(endAngle, 6);
+        expect(a.startRadian).toBeCloseTo(startAngle, 6);
+        expect(a.endRadian).toBeCloseTo(endAngle, 6);
         expect(a.isClockwise).toEqual(isClockwise);
     });
 
@@ -120,8 +147,8 @@ describe('Test for Arc', () => {
 
         expect(a.center).toEqual(center);
         expect(a.radius).toEqual(radius);
-        expect(a.startAngle).toEqual(startAngle);
-        expect(a.endAngle).toEqual(endAngle);
+        expect(a.startRadian).toEqual(startAngle);
+        expect(a.endRadian).toEqual(endAngle);
         expect(a.isClockwise).toEqual(isClockwise);
     });
 });

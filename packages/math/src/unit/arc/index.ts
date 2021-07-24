@@ -5,8 +5,6 @@ import { Vector2 } from "../vector2";
 
 const CLOCKWISE = false;
 
-// TODO 整体考虑用 radian 替换 angle
-
 /**
  * 表示二维世界的圆弧
  * 
@@ -45,10 +43,10 @@ class Arc {
      * @returns 圆弧
      */
     static createByBoundaryPoint(center: Vector2, startPoint: Vector2, endPoint: Vector2, isClockwise: boolean = CLOCKWISE) {
-        const startAngle = Utils.Circle.getAngleByPoint(center, startPoint, isClockwise);
-        const endAngle = Utils.Circle.getAngleByPoint(center, endPoint, isClockwise);
+        const startRadian = Utils.Circle.getAngleByPoint(center, startPoint, isClockwise);
+        const endRadian = Utils.Circle.getAngleByPoint(center, endPoint, isClockwise);
         const radius = Utils.Vector2.distance(startPoint, center);
-        return new Arc(center, radius, startAngle, endAngle, isClockwise);
+        return new Arc(center, radius, startRadian, endRadian, isClockwise);
     }
 
     /**
@@ -70,14 +68,14 @@ class Arc {
      * 
      * @default 0
      */
-    startAngle: number = ZERO;
+    startRadian: number = ZERO;
 
     /**
      * 终止角（弧度制）
      * 
      * @default 0
      */
-    endAngle: number = ZERO;
+    endRadian: number = ZERO;
 
     /**
      * 是否顺时针（默认：false）
@@ -89,19 +87,67 @@ class Arc {
     /**
      * @param center 圆心
      * @param radius 半径
-     * @param startAngle 起始角
-     * @param endAngle 终止角
+     * @param startRadian 起始角
+     * @param endRadian 终止角
      * @param isClockwise 是否是逆时针
      */
-    constructor(center?: Vector2, radius?: number, startAngle?: number, endAngle?: number, isClockwise: boolean = CLOCKWISE) {
+    constructor(center?: Vector2, radius?: number, startRadian?: number, endRadian?: number, isClockwise: boolean = CLOCKWISE) {
         this.center = center || this.center;
         this.radius = radius || this.radius;
-        this.startAngle = startAngle || this.startAngle;
-        this.endAngle = endAngle || this.endAngle;
+        this.startRadian = startRadian || this.startRadian;
+        this.endRadian = endRadian || this.endRadian;
         this.isClockwise = isClockwise;
     }
 
-    // TODO 增加 center radius 等 set 接口
+    /**
+     * 设置圆弧圆心
+     * @param center 圆心坐标
+     * @returns 当前圆弧
+     */
+    setCenter(center: Vector2) {
+        this.center.set(center);
+        return this;
+    }
+
+    /**
+     * 设置圆弧半径
+     * @param radius 半径
+     * @returns 当前圆弧
+     */
+    setRadius(radius: number) {
+        this.radius = radius;
+        return this;
+    }
+
+    /**
+     * 设置圆弧的起始角
+     * @param radian 起始角的角度
+     * @returns 当前圆弧
+     */
+    setStartRadian(radian: number) {
+        this.startRadian = radian;
+        return this;
+    }
+
+    /**
+     * 设置圆弧的终止角
+     * @param radian 终止角的角度
+     * @returns 当前圆弧
+     */
+    setEndRadian(radian: number) {
+        this.endRadian = radian;
+        return this;
+    }
+
+    /**
+     * 设置圆弧的方向（是否顺时针）
+     * @param value 是否顺时针
+     * @returns 当前圆弧
+     */
+    setClockwise(value: boolean) {
+        this.isClockwise = value;
+        return this;
+    }
 
     /**
      * 复制当前圆弧
@@ -111,8 +157,31 @@ class Arc {
      * @returns 新的圆弧（A new Arc）
      */
     clone() {
-        const { center, radius, startAngle, endAngle, isClockwise } = this;
-        return new Arc(center.clone(), radius, startAngle, endAngle, isClockwise);
+        const { center, radius, startRadian: startRadian, endRadian: endRadian, isClockwise } = this;
+        return new Arc(center.clone(), radius, startRadian, endRadian, isClockwise);
+    }
+
+    /**
+     * 平移圆弧
+     * @param v 平移向量
+     * @returns 新的圆弧对象
+     */
+    translate(v: Vector2) {
+        // todo 诸如 line circle arc 等 translate 接口，应该都以平移自身的需求，所以这个接口设计成支持改变自身/返回新值 两种选择
+        const { center, radius, startRadian, endRadian, isClockwise } = this;
+        return new Arc(center.add(v), radius, startRadian, endRadian, isClockwise);
+    }
+
+    /**
+     * 绕圆心旋转圆弧
+     * @param radian 旋转角度（正方向为圆弧方向）
+     * @returns 新的圆弧对象
+     */
+    rotate(radian: number) {
+        // todo 需求同 translate
+        // todo radian 方向设计再考虑一下
+        const { center, radius, startRadian, endRadian, isClockwise } = this;
+        return new Arc(center.clone(), radius, startRadian + radian, endRadian + radian, isClockwise);
     }
 
     /**
@@ -122,7 +191,7 @@ class Arc {
      */
     get midRadian() {
         // todo 处理到 0 ~ 2PI
-        return this.startAngle + this.angle / 2;
+        return this.startRadian + this.radian / 2;
     }
 
     /**
@@ -140,9 +209,9 @@ class Arc {
      * 
      * The radian of the arc
      */
-    get angle() {
+    get radian() {
         // todo 这里似乎并不能保证 diff 在 0 ～ 2PI 内
-        const diffRadian = this.endAngle - this.startAngle;
+        const diffRadian = this.endRadian - this.startRadian;
         return diffRadian < 0 ? TWO_PI + diffRadian : diffRadian;
     }
 
@@ -152,8 +221,8 @@ class Arc {
      * The starting point of the arc
      */
     get startPoint() {
-        const { center, radius, startAngle, isClockwise } = this;
-        return Utils.Circle.getPointByAngle(center, radius, startAngle, isClockwise);
+        const { center, radius, startRadian, isClockwise } = this;
+        return Utils.Circle.getPointByAngle(center, radius, startRadian, isClockwise);
     }
 
     /**
@@ -162,8 +231,8 @@ class Arc {
      * The ending point of the arc
      */
     get endPoint() {
-        const { center, radius, endAngle, isClockwise } = this;
-        return Utils.Circle.getPointByAngle(center, radius, endAngle, isClockwise);
+        const { center, radius, endRadian, isClockwise } = this;
+        return Utils.Circle.getPointByAngle(center, radius, endRadian, isClockwise);
     }
 
     /**
@@ -201,11 +270,11 @@ class Arc {
      * @param angle 
      */
     isAngleInsideArc(angle: number, tolerance: number = SIX_DECIMAL_TOLERANCE) {
-        const { startAngle, endAngle } = this;
-        if (endAngle >= startAngle) {
-            return angle >= startAngle - tolerance && angle <= endAngle + tolerance;
+        const { startRadian, endRadian } = this;
+        if (endRadian >= startRadian) {
+            return angle >= startRadian - tolerance && angle <= endRadian + tolerance;
         }
-        return angle >= startAngle - tolerance || angle <= endAngle + tolerance;
+        return angle >= startRadian - tolerance || angle <= endRadian + tolerance;
     }
 
     /**
@@ -217,9 +286,9 @@ class Arc {
         const points: Vector2[] = [];
         // 至少要用 2 个点才能表示圆弧
         if (length > 1) {
-            const step = this.angle / (length - 1);
+            const step = this.radian / (length - 1);
             for (let i = 0; i < length; i++) {
-                const angle = this.startAngle + step * i;
+                const angle = this.startRadian + step * i;
                 points.push(Utils.Circle.getPointByAngle(this.center, this.radius, angle, this.isClockwise));
             }
         }
