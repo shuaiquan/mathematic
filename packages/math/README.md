@@ -2,9 +2,9 @@
 
 在当下前端(Web)图形化，可视化应用在不断涌现的背景下，开发者在这样的项目中不可避免的需要使用很多基本的几何运算，例如向量运算，矩阵运算等。甚至如果开发者可以抽象数学模型，那么无论是什么样的场景，相信 `@s7n/math` 都可以帮助到你。
 
-[![npm version](https://img.shields.io/npm/v/@s7n/math.svg?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
-[![npm downloads](https://img.shields.io/npm/dm/@s7n/math.svg?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
-[![install size](https://img.shields.io/bundlephobia/minzip/@s7n/math?style=flat-square)](https://www.npmjs.com/package/@s7n/math)
+[![npm version](https://img.shields.io/npm/v/@s7n/math.svg?style=flat)](https://www.npmjs.com/package/@s7n/math)
+[![npm downloads](https://img.shields.io/npm/dm/@s7n/math.svg?style=flat)](https://www.npmjs.com/package/@s7n/math)
+[![install size](https://img.shields.io/bundlephobia/minzip/@s7n/math?style=flat)](https://www.npmjs.com/package/@s7n/math)
 
 
 这是一个使用 TS 编写的基础数学库，其内容大致包含：
@@ -19,6 +19,8 @@
 | Line3 | 表示三维世界的一条线 |
 | Box2 | 表示一个二维世界中的 AABB 盒子 |
 | Box3 | 表示一个三维世界中的 AABB 盒子 |
+| Circle | 表示二维世界中的一个圆 |
+| Arc | 表示二维世界中的圆弧 |
 
 详细用法请参考：[API文档](https://shuaiquan.github.io/math-docs/index.html)
 
