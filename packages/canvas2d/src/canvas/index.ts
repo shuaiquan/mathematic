@@ -1,7 +1,17 @@
+
+/**
+ * TODO 
+ * 1. 去支持一个全局默认样式的设置
+ */
+
+import { BaseShape, PartialStyleOption } from '../shape';
+
 class Canvas2D {
     private originTarget: string | HTMLCanvasElement;
 
     private isValid: boolean = false;
+
+    private shapes: BaseShape
 
     constructor(target: string | HTMLCanvasElement) {
         this.originTarget = target;
@@ -16,6 +26,10 @@ class Canvas2D {
         }
 
         this.isValid = true;
+    }
+
+    setGlobalStyleOption(styleOption: PartialStyleOption) {
+        // todo
     }
 }
 
