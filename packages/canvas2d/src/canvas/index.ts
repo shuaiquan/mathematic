@@ -4,32 +4,59 @@
  * 1. 去支持一个全局默认样式的设置
  */
 
+import { Render } from '../render';
 import { BaseShape, PartialStyleOption } from '../shape';
+import { DEFAULT_CANVAS_OPTION } from './const';
+import { CanvasOption } from './type';
 
 class Canvas2D {
-    private originTarget: string | HTMLCanvasElement;
+    /**
+     * 渲染器
+     */
+    private render: Render;
 
-    private isValid: boolean = false;
+    /**
+     * 被渲染的目标画布
+     */
+    private element: HTMLCanvasElement;
 
-    private shapes: BaseShape
+    private shapes: BaseShape[] = [];
 
-    constructor(target: string | HTMLCanvasElement) {
-        this.originTarget = target;
+    constructor(option: CanvasOption) {
+        this.element = this.createCanvas(option);
 
-        const canvas = typeof target === 'string' ? document.getElementById(target) : target;
-        if (!(canvas instanceof HTMLCanvasElement)) {
-            console.error('Canvas2D: 目标元素不是 Canvas 节点、无法绘制');
-            return;
-        } else if (!canvas.getContext) {
-            console.error('Canvas2D: 当前浏览器不支持 Canvas 2d 绘制');
-            return;
-        }
+        this.render = new Render(this.element);
+    }
 
-        this.isValid = true;
+    /**
+     * 获取被渲染的目标画布
+     */
+    getCanvas() {
+        return this.element;
     }
 
     setGlobalStyleOption(styleOption: PartialStyleOption) {
         // todo
+    }
+
+    private createCanvas(option: CanvasOption) {
+        const { element, width, height } = option;
+
+        let canvas = typeof element === 'string' ? document.getElementById(element) as HTMLCanvasElement : element;
+        if (canvas && canvas.tagName !== 'CANVAS') {
+            // 用户传入了有效的画布DOM，仅可以根据用户传入的宽高进行设置
+            return (
+                width && canvas.setAttribute('width', `${width}`),
+                height && canvas.setAttribute('height', `${height}`),
+                canvas
+            );
+        }
+
+        // 需要创建画布对象DOM，优先使用用户传入的宽高进行设置
+        canvas = document.createElement('canvas');
+        canvas.setAttribute('width', `${width || DEFAULT_CANVAS_OPTION.width}`);
+        canvas.setAttribute('height', `${height || DEFAULT_CANVAS_OPTION.height}`);
+        return canvas;
     }
 }
 
