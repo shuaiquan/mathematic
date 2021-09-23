@@ -3,7 +3,7 @@
  * 负责将 Canvas 传递来的数据进行渲染
  */
 
-class Render {
+class Renderer {
     private dom: HTMLCanvasElement;
 
     private ctx: CanvasRenderingContext2D;
@@ -14,4 +14,4 @@ class Render {
     }
 }
 
-export { Render };
+export { Renderer };

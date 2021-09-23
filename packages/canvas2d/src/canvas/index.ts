@@ -1,11 +1,6 @@
-
-/**
- * TODO 
- * 1. 去支持一个全局默认样式的设置
- */
-
-import { Render } from '../render';
-import { BaseShape, PartialStyleOption } from '../shape';
+import { Object2D } from '../object';
+import { Renderer } from '../render';
+import { PartialStyleOption } from '../shape';
 import { DEFAULT_CANVAS_OPTION } from './const';
 import { CanvasOption } from './type';
 
@@ -13,19 +8,22 @@ class Canvas2D {
     /**
      * 渲染器
      */
-    private render: Render;
+    private render: Renderer;
 
     /**
      * 被渲染的目标画布
      */
     private element: HTMLCanvasElement;
 
-    private shapes: BaseShape[] = [];
+    /**
+     * 默认视口：当前要渲染的全部元素都会被添加这个视口下
+     */
+    private viewPort: Object2D = new Object2D();
 
     constructor(option: CanvasOption) {
         this.element = this.createCanvas(option);
 
-        this.render = new Render(this.element);
+        this.render = new Renderer(this.element);
     }
 
     /**
@@ -33,6 +31,22 @@ class Canvas2D {
      */
     getCanvas() {
         return this.element;
+    }
+
+    /**
+     * 增加要渲染的元素
+     * @param child 目标元素
+     */
+    add(child: Object2D | Object2D[]) {
+        this.viewPort.addChild(child);
+    }
+
+    /**
+     * 移除要渲染的元素
+     * @param child 目标元素
+     */
+    remove(child: Object2D | Object2D[]) {
+        this.viewPort.removeChild(child);
     }
 
     setGlobalStyleOption(styleOption: PartialStyleOption) {

@@ -10,7 +10,13 @@ abstract class BaseDraw {
         ctx.fillStyle = fillColor;
 
         ctx.strokeStyle = lineColor;
-        ctx. 
+        ctx.lineCap = lineCap;
+        ctx.lineJoin = lineJoin;
+        ctx.lineWidth = lineWidth;
+
+        // if (lineDash.length > 0) {
+        //     ctx
+        // }
     }
 }
 
