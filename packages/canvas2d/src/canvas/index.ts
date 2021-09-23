@@ -1,5 +1,5 @@
 import { Object2D } from '../object';
-import { Renderer } from '../render';
+import { Renderer } from '../renderer';
 import { PartialStyleOption } from '../shape';
 import { DEFAULT_CANVAS_OPTION } from './const';
 import { CanvasOption } from './type';
@@ -8,7 +8,7 @@ class Canvas2D {
     /**
      * 渲染器
      */
-    private render: Renderer;
+    private renderer: Renderer;
 
     /**
      * 被渲染的目标画布
@@ -23,7 +23,7 @@ class Canvas2D {
     constructor(option: CanvasOption) {
         this.element = this.createCanvas(option);
 
-        this.render = new Renderer(this.element);
+        this.renderer = new Renderer(this.element);
     }
 
     /**
@@ -39,6 +39,7 @@ class Canvas2D {
      */
     add(child: Object2D | Object2D[]) {
         this.viewPort.addChild(child);
+        return this;
     }
 
     /**
@@ -47,12 +48,23 @@ class Canvas2D {
      */
     remove(child: Object2D | Object2D[]) {
         this.viewPort.removeChild(child);
+        return this;
+    }
+
+    /**
+     * 渲染画布
+     */
+    render() {
+        this.renderer.render(this.viewPort);
     }
 
     setGlobalStyleOption(styleOption: PartialStyleOption) {
         // todo
     }
 
+    /**
+     * 创建画布 DOM
+     */
     private createCanvas(option: CanvasOption) {
         const { element, width, height } = option;
 
