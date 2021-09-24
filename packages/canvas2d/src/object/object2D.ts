@@ -1,7 +1,7 @@
 import { remove } from "../common";
 
 class Object2D {
-    private children: Object2D[] = [];
+    public children: Object2D[] = [];
 
     addChild(child: Object2D | Object2D[]) {
         const children = Array.isArray(child) ? child : [child];
