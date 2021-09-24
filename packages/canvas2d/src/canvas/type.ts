@@ -11,4 +11,8 @@ export interface CanvasOption {
      * 画布的高度
      */
     height?: number;
+    /**
+     * 是否开启自动渲染
+     */
+    autoRender?: boolean;
 }

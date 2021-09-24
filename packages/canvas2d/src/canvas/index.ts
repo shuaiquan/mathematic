@@ -20,10 +20,10 @@ class Canvas2D {
      */
     private viewPort: Object2D = new Object2D();
 
-    constructor(option: CanvasOption) {
+    constructor(option: CanvasOption = {}) {
         this.element = this.createCanvas(option);
 
-        this.renderer = new Renderer(this.element);
+        this.renderer = new Renderer(this.element, option.autoRender);
     }
 
     /**

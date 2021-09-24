@@ -15,11 +15,27 @@ class Renderer {
      */
     private ctx: CanvasRenderingContext2D;
 
+    /**
+     * 要被渲染的视口
+     */
     private viewport?: Object2D;
 
-    constructor(dom: HTMLCanvasElement) {
+    /**
+     * 是否开启自动渲染
+     */
+    // private autoRender: boolean = false;
+
+    /**
+     * 自动渲染任务的 id
+     */
+    private timer?: number;
+
+    constructor(dom: HTMLCanvasElement, autoRender: boolean = false) {
         this.dom = dom;
         this.ctx = dom.getContext('2d');
+        if (autoRender) {
+            this.tick();
+        }
     }
 
     /**
@@ -31,10 +47,41 @@ class Renderer {
         this.renderViewport();
     }
 
+    /**
+     * 开启自动渲染
+     */
+    startAutoRender() {
+        if (!this.timer) {
+            this.tick();
+        }
+    }
+
+    /**
+     * 停止自动渲染
+     */
+    stopAutoRender() {
+        if (this.timer) {
+            cancelAnimationFrame(this.timer);
+        }
+    }
+
+    /**
+     * 渲染当前视口
+     */
     private renderViewport() {
         if (this.viewport) {
-            render(this.viewport);
+            render(this.viewport, this.ctx);
         }
+    }
+
+    /**
+     * 自动渲染任务
+     */
+    private tick() {
+        this.timer = requestAnimationFrame(() => {
+            this.renderViewport();
+            this.tick();
+        });
     }
 }
 
