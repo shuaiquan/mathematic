@@ -1,16 +1,27 @@
+/**
+ * 线条端点样式
+ */
 export enum LineCap {
     Butt = 'butt',
     Round = 'round',
     Square = 'square'
 }
 
+/**
+ * 线条链接样式
+ */
 export enum LineJoin {
     Round = 'round',
     Bevel = 'bevel',
     Miter = 'miter',
 }
 
-export interface StyleOption {
+/**
+ * 一份完备的样式接口
+ * 
+ * fillStyle、strokeStyle、fillAlpha、strokeAlpha 可为空，表示用户并未对其进行相关设置
+ */
+export interface CompleteStyleOption {
     /**
      * 透明度。
      * 
@@ -24,13 +35,13 @@ export interface StyleOption {
      * 
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle
      */
-    fillStyle: string;
+    fillStyle?: string;
     /**
      * 填充颜色的透明度
      * 
      * 指定当前图形填充颜色的透明度，优先级高于 alpha
      */
-    fillAlpha: number;
+    fillAlpha?: number;
     /**
      * 线条边框颜色
      * 
@@ -38,13 +49,13 @@ export interface StyleOption {
      * 
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/strokeStyle
      */
-    strokeStyle: string;
+    strokeStyle?: string;
     /**
      * 线条边框透明度
      * 
      * 指定当前图形线条边框的透明度，优先级高于 alpha
      */
-    strokeAlpha: number;
+    strokeAlpha?: number;
     /**
      * 线条宽度
      * 
@@ -85,4 +96,4 @@ export interface StyleOption {
     lineDashOffset: number;
 }
 
-export type PartialStyleOption = Partial<StyleOption>;
+export type StyleOption = Partial<CompleteStyleOption>;
