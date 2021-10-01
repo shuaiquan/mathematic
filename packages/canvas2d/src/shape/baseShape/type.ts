@@ -12,25 +12,39 @@ export enum LineJoin {
 
 export interface StyleOption {
     /**
-     * 填充颜色，相当于 canvas fillStyle
+     * 透明度。
+     * 
+     * 指定当前图形的透明度，优先级高于 globalAlpha。
+     */
+    alpha: number;
+    /**
+     * 填充颜色。
+     * 
+     * 当在填充颜色指明透明度时（例如使用rgba）,会同 fillAlpha/alpha 属性产生叠加效应；建议制定透明度使用 fillAlpha/alpha。
      * 
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle
      */
-    fillColor: string;
+    fillStyle: string;
     /**
-     * 填充的透明度
+     * 填充颜色的透明度
+     * 
+     * 指定当前图形填充颜色的透明度，优先级高于 alpha
      */
     fillAlpha: number;
     /**
-     * 线条边框颜色，相当于 canvas strokeStyle
+     * 线条边框颜色
+     * 
+     * 当在线条边框颜色指明透明度时（例如使用rgba）,会同 strokeAlpha/alpha 属性产生叠加效应；建议制定透明度使用 strokeAlpha/alpha。
      * 
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/strokeStyle
      */
-    lineColor: string;
+    strokeStyle: string;
     /**
      * 线条边框透明度
+     * 
+     * 指定当前图形线条边框的透明度，优先级高于 alpha
      */
-    lineAlpha: number;
+    strokeAlpha: number;
     /**
      * 线条宽度
      * 
@@ -45,6 +59,8 @@ export interface StyleOption {
     lineCap: LineCap;
     /**
      * 线条的连接部分样式
+     * 
+     * 仅对多段线、弧线等非封闭图形有效
      * 
      * @link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
      */
