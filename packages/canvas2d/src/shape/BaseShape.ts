@@ -1,5 +1,5 @@
-import { Object2D } from "../../object";
-import { StyleOption } from '../style';
+import { Object2D } from "../object";
+import { StyleOption } from './style';
 
 abstract class BaseShape extends Object2D {
     /**

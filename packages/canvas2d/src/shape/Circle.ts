@@ -1,6 +1,6 @@
-import { Vector2 } from "@s7n/math";
-import { BaseShape } from "../baseShape";
-import { StyleOption } from '../style';
+import { IVec2, Vector2 } from "@s7n/math";
+import { BaseShape } from "./BaseShape";
+import { StyleOption } from './style';
 
 class Circle extends BaseShape {
     /**
@@ -11,7 +11,7 @@ class Circle extends BaseShape {
     /**
      * 圆半径
      */
-    private radius: number = 0;
+    radius: number = 0;
 
     constructor(center: Vector2, radius: number, styleOption?: StyleOption) {
         super(styleOption);
@@ -22,8 +22,11 @@ class Circle extends BaseShape {
     /**
      * 设置圆心坐标
      */
-    setCenter(center: Vector2) {
-        this.center = center.clone();
+    setCenter(center: Partial<IVec2>) {
+        const x = center.x !== undefined ? center.x : this.center.x;
+        const y = center.y !== undefined ? center.y : this.center.y;
+        this.center = new Vector2(x, y);
+        return this;
     }
 
     /**
@@ -31,20 +34,6 @@ class Circle extends BaseShape {
      */
     getCenter() {
         return this.center.clone();
-    }
-
-    /**
-     * 设置半径
-     */
-    setRadius(radius: number) {
-        this.radius = radius;
-    }
-
-    /**
-     * 获取半径
-     */
-    getRadius() {
-        return this.radius;
     }
 
     getPath() {
