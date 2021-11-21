@@ -168,9 +168,9 @@ class Line2 {
      * Gets which side of the current line the point is on
      * @returns LineSide
      */
-    getSide(point: Vector2) {
+    getSide(point: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
         const product = Utils.Vector2.cross3(this.start, this.end, point);
-        if (NumberUtil.isEqual(product, 0)) {
+        if (NumberUtil.isEqual(product, 0, tolerance)) {
             return LineSide.On;
         } else if (product > 0) {
             return LineSide.Left;
