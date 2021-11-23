@@ -59,7 +59,22 @@ class Polygon {
      * 获取多边形的重心（几何中心）
      */
     getCentroid() {
-        // todo
+        let totalArea: number = 0;
+        let centroidX: number = 0;
+        let centroidY: number = 0;
+        this.points.forEach((pi, i) => {
+            const j = i === this.points.length - 1 ? 0 : i + 1;
+            const pj = this.points[j];
+            const area = (pi.x * pj.y - pi.y * pj.x) / 2;   // 等同于 Vector2.cross((0, 0), pi, pj) / 2
+
+            centroidX += (pi.x + pj.x) / 3 * area;
+            centroidY += (pi.y + pj.y) / 3 * area;
+            totalArea += area;
+        });
+        return new Vector2(
+            centroidX / totalArea,
+            centroidY / totalArea
+        );
     }
 
     /**
