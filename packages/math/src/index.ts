@@ -8,5 +8,6 @@ export { Box2 } from './unit/box2';
 export { Box3 } from './unit/box3';
 export { Arc } from './unit/arc';
 export { Circle } from './unit/circle';
+export { Ellipse } from './unit/ellipse';
 
 export { Utils } from './utils';
