@@ -126,7 +126,8 @@ class Ellipse {
      * 判断点是否椭圆内
      * @param point 目标点
      * 
-     * @todo 如何增加误差
+     * @todo 如何增加误差; 
+     * @todo 拆成两个接口 On | Inside ?
      */
     isPointInsideEllipse(point: Vector2) {
         /**
