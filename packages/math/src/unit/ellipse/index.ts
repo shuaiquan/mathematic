@@ -5,6 +5,23 @@ import { IVec2, Vector2 } from "../vector2";
  */
 class Ellipse {
     /**
+     * 通过焦点和到焦点的距离来生成一个椭圆
+     * @param f1 焦点1
+     * @param f2 焦点2
+     * @param distance 到两个焦点的距离之和
+     */
+    static createByFoci(f1: Vector2, f2: Vector2, distance: number) {
+        const a = distance / 2;
+        const c = f1.sub(f2).length / 2;
+
+        const center = f1.add(f2).sub(2);
+        const rx = a;
+        const ry = Math.sqrt(a * a - c * c);
+        const rotate = f2.sub(f1).angle;
+        return new Ellipse(center, rx, ry, rotate);
+    }
+
+    /**
      * 椭圆圆心
      */
     center: Vector2 = new Vector2(0, 0);
@@ -103,6 +120,24 @@ class Ellipse {
     clone() {
         const { center, rx, ry, rotate } = this;
         return new Ellipse(center, rx, ry, rotate);
+    }
+
+    /**
+     * 判断点是否椭圆内
+     * @param point 目标点
+     * 
+     * @todo 如何增加误差
+     */
+    isPointInsideEllipse(point: Vector2) {
+        /**
+         * 椭圆坐标方程：x^2 / a^2 + y^2 / b^2 = 1 (x, y 指以 center 为原点的坐标系)
+         * 
+         * 故椭圆内的点需要满足 (x - center.x)^2 / a^2 + (y - center.x)^2 / b^2 <= 1
+         */
+        const { center, rx, ry } = this;
+        const { x, y } = center;
+        const { x: px, y: py } = point;
+        return Math.pow(px - x, 2) / Math.pow(rx, 2) + Math.pow(py - y, 2) / Math.pow(ry, 2) <= 1;
     }
 }
 
