@@ -1,7 +1,6 @@
-import { ZERO } from "../../const";
+import { SIX_DECIMAL_TOLERANCE, ZERO } from "../../const";
 import { Utils } from "../../utils";
 import { Vector2 } from "../vector2";
-import { Vector3 } from "../vector3";
 import { PointInfo } from "./interface";
 
 /**
@@ -143,6 +142,18 @@ class Box2 {
      */
     checkValid() {
         return this.max.x > this.min.x && this.max.y > this.min.y;
+    }
+
+    /**
+     * 判断点是否在 Box2 内
+     * @param point 
+     */
+    isPointInBox(point: Vector2, tolerance: number = SIX_DECIMAL_TOLERANCE) {
+        const maxX = this.max.x + tolerance;
+        const maxY = this.max.y + tolerance;
+        const minX = this.min.x - tolerance;
+        const minY = this.min.y - tolerance;
+        return point.x <= maxX && point.x >= minX && point.y <= maxY && point.y >= minY;
     }
 }
 
