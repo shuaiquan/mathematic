@@ -89,7 +89,8 @@ class Polygon {
         let inSide: boolean = false;
 
         const length = this.points.length;
-        for (let i = 0, j = i + 1; i < length; i++, j++) {
+        for (let i = 0, j = i + 1; i < length; i++) {
+            j = i === length - 1 ? 0 : i + 1;
             const pi = this.points[i];
             const pj = this.points[j];
 
