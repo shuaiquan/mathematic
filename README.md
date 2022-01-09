@@ -22,7 +22,7 @@
 | Circle | 表示二维世界中的一个圆 |
 | Arc | 表示二维世界中的圆弧 |
 
-详细用法请参考：[API文档](https://shuaiquan.github.io/math-docs/index.html)
+详细用法请参考：[API文档](https://shuaiquan.github.io/mathematic/index.html)
 
 ## 使用
 ```
@@ -45,7 +45,7 @@ const dotProduct = v1.dot(v2);
 已提供接口可参考API文档
 
 ## API 文档
-文档地址：[Docs](https://shuaiquan.github.io/math-docs/index.html)
+文档地址：[Docs](https://shuaiquan.github.io/mathematic/index.html)
 
 ## 设计理念
 本项目在接口的设计上对 `three/math` 有诸多的参考，但是有一点很不一样，需要格外提醒大家：

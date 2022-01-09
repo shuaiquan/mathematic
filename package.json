@@ -1,6 +1,6 @@
 {
   "name": "@s7n/math",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "a math library for js",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
