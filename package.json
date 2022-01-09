@@ -1,16 +1,19 @@
 {
-  "name": "mathematical",
-  "version": "0.0.1",
-  "description": "A mathematical platform with magic",
-  "main": "index.js",
+  "name": "@s7n/math",
+  "version": "0.0.8",
+  "description": "a math library for js",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "NODE_ENV=production webpack",
-    "test": "test"
+    "build:test": "tsc --noEmit",
+    "build": "rm -rf lib && rm -rf types && tsc",
+    "prepublishOnly": "npm run build",
+    "doc": "typedoc --options ./typedoc.json",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuaiquan/mathematic.git"
+    "url": "git+https://github.com/shuaiquan/mathematic"
   },
   "keywords": [
     "math",
@@ -27,24 +30,10 @@
   },
   "homepage": "https://github.com/shuaiquan/mathematic#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/plugin-transform-runtime": "^7.13.15",
-    "@babel/preset-env": "^7.14.0",
-    "@types/jest": "^26.0.24",
-    "@types/react": "^17.0.4",
-    "@types/react-dom": "^17.0.3",
-    "babel-loader": "^8.2.2",
-    "html-webpack-plugin": "^5.3.1",
-    "lerna": "^4.0.0",
-    "ts-loader": "^9.1.1",
-    "typescript": "^4.2.4",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs2": "^7.14.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "typedoc": "^0.20.36",
+    "typescript": "~4.2.4"
   }
 }

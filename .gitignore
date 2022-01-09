@@ -1,9 +1,7 @@
 node_modules
 
-.vscode
-
-dist
+lib
 
 types
 
-packages/math-docs
+coverage

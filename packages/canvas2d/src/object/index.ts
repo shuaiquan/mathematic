@@ -1,1 +1,0 @@
-export { Object2D } from "./object2d";
