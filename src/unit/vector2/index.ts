@@ -63,14 +63,17 @@ class Vector2 {
      * @param x x value
      * @param y y value
      */
-    constructor(x?: number, y?: number);
+    constructor(x: number, y: number);
     /**
      * @param point An Object that contains the values x and y
      */
-    constructor(point?: Partial<IVec2>);
+    constructor(point: Partial<IVec2>);
+    constructor();
     constructor() {
         const [p1, p2] = arguments;
-        this.set(p1, p2);
+        if (p1 !== undefined) {
+            this.set(p1, p2);
+        }
     }
 
     /**
@@ -81,7 +84,7 @@ class Vector2 {
      * @param y y value
      * @returns 当前向量 (this vector2)
      */
-    set(x?: number, y?: number): Vector2;
+    set(x: number, y: number): Vector2;
     /**
      * 设置向量的值
      * 
@@ -90,10 +93,21 @@ class Vector2 {
      * @returns 当前向量 (this vector2)
      */
     set(point: Partial<IVec2>): Vector2;
+    /**
+     * 设置向量的值
+     * 
+     * Sets values of this vector
+     * @param value 向量的 X 和 Y 值
+     * @returns 当前向量 (this vector2)
+     */
+    set(value: number): Vector2;
     set() {
-        if (typeof arguments[0] === 'number' || typeof arguments[1] === 'number') {
-            this.x = arguments[0] === undefined ? this.x : arguments[0];
-            this.y = arguments[1] === undefined ? this.y : arguments[1];
+        if (typeof arguments[0] === 'number' && typeof arguments[1] === 'number') {
+            this.x = arguments[0];
+            this.y = arguments[1];
+        } else if (typeof arguments[0] === 'number') {
+            this.x = arguments[0];
+            this.y = arguments[0];
         } else if (typeof arguments[0] === 'object') {
             const { x, y } = arguments[0];
             this.x = x === undefined ? this.x : x;

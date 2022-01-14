@@ -37,16 +37,6 @@ test('Vector3 set', () => {
 
     v.set(100);
     expect(v.x).toBe(100);
-    expect(v.y).toBe(0);
-    expect(v.z).toBe(0);
-
-    v.set(undefined, 100);
-    expect(v.x).toBe(100);
-    expect(v.y).toBe(100);
-    expect(v.z).toBe(0);
-
-    v.set(0, undefined, 100);
-    expect(v.x).toBe(0);
     expect(v.y).toBe(100);
     expect(v.z).toBe(100);
 

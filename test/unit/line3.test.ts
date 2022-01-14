@@ -105,7 +105,7 @@ test('getProjectedPoint', () => {
 
 test('getDistance', () => {
     const l1 = new Line3(new Vector3(-10, 0, 10), new Vector3(10, 0, 10));
-    const point = new Vector3(-20, 10);
+    const point = new Vector3(-20, 10, 0);
     expect(l1.getDistance(point)).toEqual(Math.sqrt(200));
     expect(l1.getDistance(point, true)).toEqual(Math.sqrt(300))
 });

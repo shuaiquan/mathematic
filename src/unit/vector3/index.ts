@@ -79,14 +79,17 @@ class Vector3 {
      * @param y y value
      * @param z z value
      */
-    constructor(x?: number, y?: number, z?: number);
+    constructor(x: number, y: number, z: number);
     /**
      * @param point An object that contains the values x, y and z
      */
-    constructor(point?: Partial<IVec3>);
+    constructor(point: Partial<IVec3>);
+    constructor();
     constructor() {
         const [p1, p2, p3] = arguments;
-        this.set(p1, p2, p3);
+        if (p1 !== undefined) {
+            this.set(p1, p2, p3);
+        }
     }
 
     /**
@@ -98,7 +101,7 @@ class Vector3 {
      * @param z z value
      * @returns 当前向量 (this vector3)
      */
-    set(x?: number, y?: number, z?: number): Vector3;
+    set(x: number, y: number, z: number): Vector3;
     /**
      * 设置向量的值
      * 
@@ -107,11 +110,23 @@ class Vector3 {
      * @returns 当前向量 (this vector3)
      */
     set(point: Partial<IVec3>): Vector3;
+    /**
+     * 设置向量的值
+     * 
+     * Sets values of the current vector
+     * @param value 向量的 X、Y、Z 的值
+     * @returns 当前向量 (this vector3)
+     */
+    set(value: number): Vector3;
     set() {
-        if (typeof arguments[0] === 'number' || typeof arguments[1] === 'number' || typeof arguments[2] === 'number') {
-            this.x = arguments[0] === undefined ? this.x : arguments[0];
-            this.y = arguments[1] === undefined ? this.y : arguments[1];
-            this.z = arguments[2] === undefined ? this.z : arguments[2];
+        if (typeof arguments[0] === 'number' && typeof arguments[1] === 'number' && typeof arguments[2] === 'number') {
+            this.x = arguments[0];
+            this.y = arguments[1];
+            this.z = arguments[2];
+        } else if (typeof arguments[0] === 'number') {
+            this.x = arguments[0];
+            this.y = arguments[0];
+            this.z = arguments[0];
         } else if (typeof arguments[0] === 'object') {
             const { x, y, z } = arguments[0];
             this.x = x === undefined ? this.x : x;

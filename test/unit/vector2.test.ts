@@ -32,10 +32,6 @@ test('Vector2 set', () => {
 
     v.set(100);
     expect(v.x).toBe(100);
-    expect(v.y).toBe(0);
-
-    v.set(undefined, 100);
-    expect(v.x).toBe(100);
     expect(v.y).toBe(100);
 
     v.set({ x: 10 });
